@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Get Logs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            z-index: 0;
+        }
+        main {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #00eeff;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00eeff, 0 0 20px #00eeff, 0 0 30px #00eeff;
+            }
+            to {
+                text-shadow: 0 0 20px #00eeff, 0 0 30px #00eeff, 0 0 40px #00eeff;
+            }
+        }
+        .form-container {
+            background: rgba(30, 30, 30, 0.8); /* Darker form background */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1s ease-out;
+            color: #fff; /* Ensure text inside form is visible */
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        label {
+            font-weight: bold;
+            color: #00ffd5;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background: #444; /* Darker background for input */
+            color: #fff; /* White text color */
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        input::placeholder {
+            color: #bbb; /* Lighter placeholder text */
+        }
+        input:focus {
+            background-color: #555;
+            border-color: #00ffd5;
+            outline: none;
+        }
+        .btn {
+            color: #fff;
+            background: #00ffd5;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.6);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(30, 30, 30, 0.8);
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay muted loop id="bg-video">
+        <source src="/my portfolio/templates/dark-spiderman-neon-moewalls-com.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <main>
+        <h1 class="text-4xl font-bold mb-8">Get Logs</h1>
+        <div class="form-container w-full max-w-lg">
+            <form action="/cgi-bin/AWSfiles/get_logs.py" method="post" class="space-y-6">
+                <div class="form-control">
+                    <label for="logGroupName">Log Group Name:</label>
+                    <input type="text" id="logGroupName" name="logGroupName" placeholder="Enter Log Group Name">
+                </div>
+                <div class="form-control">
+                    <label for="logStreamName">Log Stream Name:</label>
+                    <input type="text" id="logStreamName" name="logStreamName" placeholder="Enter Log Stream Name">
+                </div>
+                <div class="form-control">
+                    <label for="awsAccessKey">AWS Access Key:</label>
+                    <input type="text" id="awsAccessKey" name="awsAccessKey" placeholder="Enter AWS Access Key">
+                </div>
+                <div class="form-control">
+                    <label for="awsSecretKey">AWS Secret Key:</label>
+                    <input type="text" id="awsSecretKey" name="awsSecretKey" placeholder="Enter AWS Secret Key">
+                </div>
+                <div class="form-control">
+                    <label for="regionName">Region Name:</label>
+                    <input type="text" id="regionName" name="regionName" placeholder="Enter Region Name">
+                </div>
+                <button type="submit" class="btn">Get Logs</button>
+            </form>
+        </div>
+        <div id="result" class="w-full max-w-lg"></div>
+    </main>
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var params = new URLSearchParams(formData);
+
+            fetch('/cgi-bin/AWSfiles/get_logs.py', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').innerText = data;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

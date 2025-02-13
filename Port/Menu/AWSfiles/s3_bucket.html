@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage S3 Buckets</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #ccc;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            box-sizing: border-box;
+            overflow: auto;
+        }
+
+        h2 {
+            color: #16bcc2;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-out;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #aaa;
+        }
+
+        input[type=text],
+        input[type=file],
+        select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background: #222;
+            color: #ddd;
+            box-sizing: border-box;
+            transition: background 0.3s ease, border 0.3s ease;
+        }
+
+        input[type=text]:focus,
+        input[type=file]:focus,
+        select:focus {
+            background: #333;
+            border-color: #16bcc2;
+            outline: none;
+        }
+
+        input[type=submit] {
+            background: #16bcc2;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            animation: pulse 1.5s infinite;
+        }
+
+        input[type=submit]:hover {
+            background: #14a5a1;
+            transform: scale(1.05);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            background: #333;
+            color: #ccc;
+            text-align: center;
+            animation: slideIn 1s ease-out;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h2>Create S3 Bucket</h2>
+        <form action="/cgi-bin/AWSfiles/s3_bucket.py" method="post">
+            <input type="hidden" name="action" value="create_bucket">
+            <label for="bucket_name">Bucket Name:</label>
+            <input type="text" id="bucket_name" name="bucket_name" required>
+            <input type="submit" value="Create Bucket">
+        </form>
+
+        <h2>Upload File to S3 Bucket</h2>
+        <form action="/cgi-bin/AWSfiles/s3_bucket.py" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="upload_file">
+            <label for="bucket_name">Select Bucket:</label>
+            <select id="bucket_name" name="bucket_name" required>
+                <!-- Options will be dynamically populated by Python script -->
+            </select>
+            <label for="file">Choose File:</label>
+            <input type="file" id="file" name="file" required>
+            <input type="submit" value="Upload File">
+        </form>
+
+        <!-- This div will display success or error messages -->
+        <div id="message" class="message">
+            <!-- Messages will be dynamically populated by Python script -->
+        </div>
+    </main>
+</body>
+
+</html>

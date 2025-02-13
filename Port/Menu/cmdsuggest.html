@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Suggestions</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: #fff;
+            background: linear-gradient(135deg, #1c1c1c, #4f4f4f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+        }
+        /* Navigation styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            background-color: rgba(30, 30, 30, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            animation: slideIn 1s ease-out;
+        }
+        nav h1 {
+            color: #00ff6a;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            margin: 0;
+        }
+        nav ul {
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            list-style: none;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #f5f5f5;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s, transform 0.3s;
+        }
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: #00ff6a;
+            transition: width 0.3s;
+        }
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        nav ul li a:hover {
+            color: #00ff6a;
+            transform: scale(1.1) translateY(-3px);
+        }
+        /* Container styles */
+        .container {
+            max-width: 600px;
+            margin: 120px auto 20px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #00ff6a;
+            font-size: 28px;
+            animation: textGlow 1.5s infinite alternate, bounceIn 1s ease-out;
+        }
+        #commandInput {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            background: #333;
+            color: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        #commandInput:focus {
+            border-color: #00ff6a;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 21, 0.5);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #000;
+            background-color: rgba(0, 255, 21, 0.8);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transform: scale(1.05);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            animation: pulse 1s infinite;
+        }
+        .button:hover {
+            color: #fff;
+            background: rgba(51, 255, 0, 1);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 255, 21, 0.8);
+        }
+        /* Suggestions list styles */
+        #suggestionList {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #suggestionList li {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #555;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        #suggestionList li:last-child {
+            border-bottom: none;
+        }
+        #suggestionList li:hover {
+            background-color: #444;
+            transform: translateX(5px);
+        }
+        /* Keyframe animations */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 10px #00ff6a;
+            }
+            to {
+                text-shadow: 0 0 20px #00ff6a, 0 0 30px #00ff6a;
+            }
+        }
+        @keyframes bounceIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Yash Agarwal</h1>
+        <ul>
+    </nav>
+    <div class="container">
+        <h1>Command Suggestions</h1>
+        <input type="text" id="commandInput" placeholder="Type a command...">
+        <button class="button">Submit</button>
+        <ul id="suggestionList"></ul>
+    </div>
+    <script>
+        const input = document.getElementById('commandInput');
+        const suggestionList = document.getElementById('suggestionList');
+
+        input.addEventListener('input', () => {
+            const query = input.value.trim();
+            if (query.length === 0) {
+                suggestionList.innerHTML = '';
+                return;
+            }
+            fetch(`/cgi-bin/suggestion.py?q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionList.innerHTML = '';
+                    data.forEach(suggestion => {
+                        const li = document.createElement('li');
+                        li.textContent = suggestion;
+                        suggestionList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error fetching suggestions:', error));
+        });
+    </script>
+</body>
+</html>

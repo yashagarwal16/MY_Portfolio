@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume Control</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212; /* Dark background */
+            color: #e0e0e0; /* Light text */
+        }
+
+        .container {
+            animation: slideIn 1s ease-out;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            background: #1e1e1e; /* Darker background for container */
+        }
+
+        .btn-primary, .btn-secondary {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: #6200ea; /* Dark purple */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .btn-secondary {
+            background-color: #03dac6; /* Teal */
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        #volume-slider {
+            width: 100%;
+            transition: background 0.3s ease;
+            background: #333; /* Dark slider track */
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+            background: #6200ea; /* Dark purple thumb */
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        #volume-slider:active::-webkit-slider-thumb {
+            background: #03dac6; /* Teal thumb on active */
+        }
+
+        #volume-status {
+            font-size: 1.25rem;
+            font-weight: bold;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Volume Control</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="form-group">
+                    <label for="volume-slider">Set Volume:</label>
+                    <input type="range" class="form-control-range" id="volume-slider" min="0" max="100" value="90">
+                    <small class="form-text text-muted" id="volume-label">Volume: 90%</small>
+                </div>
+                <button class="btn btn-primary" id="set-volume-btn">Set Volume</button>
+                <button class="btn btn-secondary mt-3" id="get-volume-btn">Get Volume</button>
+                <div id="volume-status" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() {
+            const volumeSlider = $('#volume-slider');
+            const volumeLabel = $('#volume-label');
+            const volumeStatus = $('#volume-status');
+            const setVolumeBtn = $('#set-volume-btn');
+            const getVolumeBtn = $('#get-volume-btn');
+
+            // Update the label when the slider value changes
+            volumeSlider.on('input', function() {
+                const volume = $(this).val();
+                volumeLabel.text(`Volume: ${volume}%`);
+            });
+
+            // Set volume button click handler
+            setVolumeBtn.on('click', function() {
+                const volume = volumeSlider.val() / 100;
+                $.ajax({
+                    url: '/set-volume',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ volume_level: volume }),
+                    success: function(response) {
+                        volumeStatus.html(`<div class="alert alert-success fade-in">${response.message}</div>`);
+                        volumeStatus.find('.alert').addClass('pulse');
+                        setTimeout(function() {
+                            volumeStatus.find('.alert').removeClass('pulse');
+                        }, 2000);
+                    },
+                    error: function(response) {
+                        volumeStatus.html(`<div class="alert alert-danger fade-in">${response.responseJSON.message}</div>`);
+                        volumeStatus.find('.alert').addClass('pulse');
+                        setTimeout(function() {
+                            volumeStatus.find('.alert').removeClass('pulse');
+                        }, 2000);
+                    }
+                });
+            });
+
+            // Get volume button click handler
+            getVolumeBtn.on('click', function() {
+                $.ajax({
+                    url: '/get-volume',
+                    method: 'GET',
+                    success: function(response) {
+                        volumeStatus.html(`<div class="alert alert-info fade-in">Current Volume: ${response.current_volume}%</div>`);
+                        volumeStatus.find('.alert').addClass('pulse');
+                        setTimeout(function() {
+                            volumeStatus.find('.alert').removeClass('pulse');
+                        }, 2000);
+                    },
+                    error: function(response) {
+                        volumeStatus.html(`<div class="alert alert-danger fade-in">Error fetching volume</div>`);
+                        volumeStatus.find('.alert').addClass('pulse');
+                        setTimeout(function() {
+                            volumeStatus.find('.alert').removeClass('pulse');
+                        }, 2000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

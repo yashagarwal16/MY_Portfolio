@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Cam</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            color: #fff;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        nav h1 {
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0 20px;
+            font-size: 24px;
+            animation: textGlow 1.5s infinite alternate;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #ddd;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .logo {
+            max-width: 120px;
+            margin-top: 20px;
+            animation: logoBounce 1s ease-in-out infinite;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 80px; /* Adjust to provide space for fixed navigation */
+        }
+
+        video {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            background-color: #000;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        video:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            text-align: center;
+            color: #fff;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 5px #fff; }
+            to { text-shadow: 0 0 20px #a777e3; }
+        }
+
+        @keyframes logoBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Live Cam</h1>
+    </nav>
+    <header>
+        <img src="/my-portfolio/templates/pngwing.com (3).png" alt="Logo" class="logo">
+    </header>
+    <div class="container">
+        <h1>Live Cam Task</h1>
+        <video id="video" autoplay></video>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const video = document.getElementById('video');
+
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(err => {
+                        console.error("Error accessing camera: ", err);
+                    });
+            } else {
+                alert("Sorry, your browser does not support camera access.");
+            }
+        });
+    </script>
+</body>
+</html>

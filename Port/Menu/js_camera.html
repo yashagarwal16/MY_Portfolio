@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Camera</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/dynamsoft-camera-enhancer@2.1.0/dist/dce.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #8e44ad, #3498db);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #fff;
+            position: relative;
+        }
+
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .background-animation svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .camera-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 900px;
+            height: 80vh;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .camera-ui {
+            height: 100%;
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .btn-capture {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            background: #e74c3c;
+            color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 10;
+            position: relative;
+        }
+
+        .btn-capture:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.5);
+        }
+
+        .btn-capture:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-animation">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+            <g fill-opacity="0.4">
+                <circle cx="200" cy="100" r="120" fill="#ff6347">
+                    <animate attributeName="cx" from="200" to="600" dur="20s" repeatCount="indefinite" />
+                    <animate attributeName="cy" from="100" to="400" dur="25s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="600" cy="400" r="120" fill="#ffd700">
+                    <animate attributeName="cx" from="600" to="200" dur="20s" repeatCount="indefinite" />
+                    <animate attributeName="cy" from="400" to="100" dur="25s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="400" cy="300" r="150" fill="#32cd32">
+                    <animate attributeName="r" from="150" to="50" dur="15s" repeatCount="indefinite" />
+                </circle>
+            </g>
+        </svg>
+    </div>
+
+    <div class="camera-container">
+        <div id="enhancerUIContainer" class="camera-ui"></div>
+        <button class="btn-capture" id="capture">Capture</button>
+    </div>
+
+    <script>
+        let enhancer = null;
+
+        (async () => {
+            enhancer = await Dynamsoft.DCE.CameraEnhancer.createInstance();
+            document.getElementById("enhancerUIContainer").appendChild(enhancer.getUIElement());
+            await enhancer.open(true);
+        })();
+
+        document.getElementById('capture').onclick = () => {
+            if (enhancer) {
+                let frame = enhancer.getFrame();
+
+                let width = screen.availWidth;
+                let height = screen.availHeight;
+                let popW = 640, popH = 640;
+                let left = (width - popW) / 2;
+                let top = (height - popH) / 2;
+
+                let popWindow = window.open('', 'popup', `width=${popW},height=${popH},top=${top},left=${left},scrollbars=yes`);
+
+                popWindow.document.body.style.margin = 0;
+                popWindow.document.body.style.padding = 0;
+                popWindow.document.body.appendChild(frame.canvas);
+            }
+        };
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

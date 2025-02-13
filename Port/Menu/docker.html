@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Choco</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f0f4f8;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #9013fe);
+            border-bottom: 1px solid #4a5568;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .header ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .header ul li {
+            display: inline;
+        }
+
+        .header ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .header ul li a:hover {
+            color: #edf2f7;
+            transform: scale(1.05);
+        }
+
+        .header .dark-mode-toggle {
+            cursor: pointer;
+            background-color: #4a5568;
+            border: 1px solid #2d3748;
+            border-radius: 0.375rem;
+            padding: 0.5rem;
+            font-size: 1rem;
+            color: #ffffff;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .header .dark-mode-toggle:hover {
+            background-color: #2d3748;
+            transform: scale(1.05);
+        }
+
+        .container {
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 2rem;
+            background: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .input-field {
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #333;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #63b3ed;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 182, 237, 0.3);
+        }
+
+        .button {
+            background-color: #63b3ed;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #3182ce;
+            transform: scale(1.05);
+        }
+
+        .loading {
+            border: 4px solid #e2e8f0;
+            border-radius: 50%;
+            border-top: 4px solid #63b3ed;
+            width: 2rem;
+            height: 2rem;
+            margin: auto;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .output {
+            background: #f9fafb;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            color: #333;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <h1>Docker Automation</h1>
+        </div>
+        <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
+    </header>
+
+    <main class="container mx-auto mt-10 px-4">
+        <!-- Docker Images Section -->
+        <section class="mb-10 p-6 bg-gray-50 rounded-lg shadow-lg">
+            <h2 class="section-header">Pulled Images</h2>
+            <div class="flex flex-col md:flex-row items-center md:justify-between mb-6 space-y-4 md:space-y-0">
+                <input type="text" id="imageName" class="input-field" placeholder="Enter Image Name">
+                <div class="flex space-x-4">
+                    <button id="pullImage" onclick="PullImage()" class="button">Pull Image</button>
+                    <button id="getAllImages" onclick="GetAllImages()" class="button">Get All Images</button>
+                    <button id="showRunningContainers" onclick="getAllRunningContainers()" class="button">Show Running Containers</button>
+                    <button id="showAllContainers" onclick="getAllContainers()" class="button">Show All Containers</button>
+                    <button id="liveUpdateBtn" onclick="toggleLiveUpdate()" class="button bg-yellow-500 text-black">Live Update</button>
+                </div>
+            </div>
+            <div id="loading" class="loading" style="display: none;"></div>
+            <div id="getOutput" class="output"></div>
+        </section>
+
+        <!-- Container Management Section -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">Launch a Container</h2>
+                <input type="text" id="launchAnContainer" class="input-field mb-4" placeholder="Enter Container Name">
+                <button id="launchContainer" onclick="launchAnContainer()" class="button">Launch a Container</button>
+            </div>
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">Start Container</h2>
+                <input type="text" id="containerNameStart" class="input-field mb-4" placeholder="Enter Container Name">
+                <button id="startContainer" onclick="StartContainer()" class="button">Start Container</button>
+            </div>
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">Stop Container</h2>
+                <input type="text" id="containerNameStop" class="input-field mb-4" placeholder="Enter Container Name">
+                <button id="stopContainer" onclick="StopContainer()" class="button bg-red-600">Stop Container</button>
+            </div>
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">List Docker Volume</h2>
+                <button id="dockervolume" onclick="dockervolume()" class="button">List Volumes</button>
+            </div>
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-4">List Docker Network</h2>
+                <button id="dockernetwork" onclick="dockernetwork()" class="button">List Networks</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let liveUpdateInterval;
+
+        function showLoader() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoader() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function toggleDarkMode() {
+            const body = document.body;
+            const header = document.querySelector('.header');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                header.style.background = 'linear-gradient(135deg, #4a90e2, #9013fe)';
+            } else {
+                body.classList.add('dark');
+                header.style.background = 'linear-gradient(135deg, #1a202c, #2d3748)';
+            }
+        }
+
+        async function PullImage() {
+            showLoader();
+            const imageName = document.getElementById('imageName').value;
+            const response = await fetch('/pull-image', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ imageName }),
+            });
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function GetAllImages() {
+            showLoader();
+            const response = await fetch('/get-all-images');
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function getAllRunningContainers() {
+            showLoader();
+            const response = await fetch('/get-all-running-containers');
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function getAllContainers() {
+            showLoader();
+            const response = await fetch('/get-all-containers');
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function launchAnContainer() {
+            showLoader();
+            const containerName = document.getElementById('launchAnContainer').value;
+            const response = await fetch('/launch-container', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ containerName }),
+            });
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function StartContainer() {
+            showLoader();
+            const containerName = document.getElementById('containerNameStart').value;
+            const response = await fetch('/start-container', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ containerName }),
+            });
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function StopContainer() {
+            showLoader();
+            const containerName = document.getElementById('containerNameStop').value;
+            const response = await fetch('/stop-container', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ containerName }),
+            });
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function dockervolume() {
+            showLoader();
+            const response = await fetch('/list-docker-volume');
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        async function dockernetwork() {
+            showLoader();
+            const response = await fetch('/list-docker-network');
+            const result = await response.text();
+            document.getElementById('getOutput').textContent = result;
+            hideLoader();
+        }
+
+        function toggleLiveUpdate() {
+            const button = document.getElementById('liveUpdateBtn');
+            if (liveUpdateInterval) {
+                clearInterval(liveUpdateInterval);
+                liveUpdateInterval = null;
+                button.textContent = 'Live Update';
+            } else {
+                liveUpdateInterval = setInterval(() => {
+                    GetAllImages();
+                }, 5000);
+                button.textContent = 'Stop Live Update';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch AWS Instance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #121212; /* Dark background for a "black web" feel */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e0e0;
+            overflow: hidden;
+            animation: backgroundFadeIn 2s ease-in-out;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(30, 30, 30, 0.9); /* Slightly lighter dark background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            animation: slideIn 1s ease-in-out;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #00ffd5;
+            text-align: center;
+            animation: textGlow 1.5s ease-in-out infinite alternate;
+        }
+        label {
+            font-weight: bold;
+            color: #00ffd5;
+        }
+        .form-control {
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        .form-control::placeholder {
+            color: #888;
+        }
+        .form-control:focus {
+            border-color: #00ffd5;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        .btn {
+            margin-top: 20px;
+            color: #ffffff;
+            background: #00ffd5;
+            border: none;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            background: #00b2b2;
+            transform: scale(1.05);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background: #2e2e2e;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes backgroundFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px #00ffd5; }
+            to { text-shadow: 0 0 20px #00ffd5, 0 0 30px #00ffd5; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Launch AWS Instance</h1>
+        <form id="launch-form" action="/cgi-bin/launch_instance.py" method="post">
+            <label for="instanceType">Instance Type:</label>
+            <input type="text" id="instanceType" name="instanceType" class="form-control" placeholder="Enter Instance Type">
+            <label for="imageId">Image ID:</label>
+            <input type="text" id="imageId" name="imageId" class="form-control" placeholder="Enter Image ID">
+            <label for="regionName">Region Name:</label>
+            <input type="text" id="regionName" name="regionName" class="form-control" placeholder="Enter Region Name">
+            <button type="submit" class="btn">Launch</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.getElementById('launch-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var params = new URLSearchParams(formData);
+
+            fetch('/cgi-bin/AWSfiles/launch_instance.py', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Bulk Email</title>
+    <link rel="icon" href="data:,">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        main {
+      position: relative;
+      margin-top: 80px;
+      padding: 20px;
+    }
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+        nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      background-color: #1e1e1e;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 0 20px;
+      animation: slideUp 1s ease-in-out;
+    }
+    nav h1 {
+      color: #760094;
+      font-family: 'Montserrat', sans-serif;
+      padding-right: 35px;
+    }
+    nav ul {
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li {
+      list-style: none;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #f5f5f5;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s, transform 0.3s;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background:#ffffff;
+      transition: width 0.3s;
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    nav ul li a:hover {
+      color: #00ff6a;
+      transform: scale(1.1) translateY(-3px);
+    }
+        h1 {
+            color: #000000;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            background: rgba(0, 0, 0, 0.705);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+        input[type="text"], textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #00f03c;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="\my portfolio\page1.html">Home</a></li>
+            <li><a href="\my portfolio\Task.html">All Projects</a></li>
+        </ul>
+    </nav>
+    <h1>Send Bulk Email</h1>
+    <form id="emailForm">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+
+        <label for="body">Body:</label>
+        <textarea id="body" name="body" required></textarea>
+
+        <label for="recipients">Recipients (comma-separated):</label>
+        <input type="text" id="recipients" name="recipients" required>
+
+        <input type="submit" value="Send Emails">
+    </form>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+
+            const formData = new FormData(this);
+
+            fetch('/cgi-bin/send_bulk_email.py', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.results) {
+                    const results = data.results;
+                    results.forEach(result => {
+                        if (result.status === "success") {
+                            alert(`Email sent successfully to ${result.recipient}`);
+                        } else {
+                            alert(`Failed to send email to ${result.recipient}. Error: ${result.error}`);
+                        }
+                    });
+                } else {
+                    alert('Failed to send emails: Unknown error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while sending emails.');
+            });
+        });
+    </script>
+</body>
+<main id="bg-video">
+    <video autoplay muted loop id="bg-video">
+      <source src="/my portfolio\templates/z36pwGdt1v5peQu_Green-Halo-Tanjiro-4K_4_101134.mp4" type="video/mp4">
+    </video>
+</html>
+

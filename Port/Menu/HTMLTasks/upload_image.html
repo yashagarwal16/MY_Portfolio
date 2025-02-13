@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Resize</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2d;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #upload-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            max-width: 500px;
+            width: 100%;
+            transform: scale(0.9);
+            opacity: 0;
+            animation: scaleIn 0.5s ease-in forwards;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #ff7300;
+            text-shadow: 0 0 10px #ff7300;
+            font-size: 1.8rem;
+            animation: glow 1.5s infinite alternate;
+        }
+        #upload-btn {
+            color: #fff;
+            background-color: #ff7300;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.3s;
+            animation: buttonPulse 2s infinite;
+        }
+        #upload-btn:hover {
+            background-color: #ff5722;
+            transform: scale(1.05);
+        }
+        #image-container {
+            margin-top: 20px;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1s ease-in 0.5s forwards;
+        }
+        #uploaded-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s, opacity 0.3s;
+            animation: imageZoom 1s ease-in-out;
+        }
+        #uploaded-image:hover {
+            transform: scale(1.1);
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            display: inline-block;
+            background-color: #ff9100;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            animation: labelFade 1s ease-in-out;
+        }
+        label:hover {
+            background-color: #ff5722;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #ff7300;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            animation: buttonFade 1s ease-in-out;
+        }
+        button:hover {
+            background-color: #ff5722;
+        }
+        #download-link {
+            display: none;
+            margin-top: 10px;
+            color: #ff7300;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s;
+            animation: linkFade 1s ease-in-out;
+        }
+        #download-link:hover {
+            color: #ff5722;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #ff7300; }
+            50% { text-shadow: 0 0 20px #ff7300; }
+            100% { text-shadow: 0 0 10px #ff7300; }
+        }
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes imageZoom {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes labelFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes buttonFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes linkFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+<div id="upload-container">
+    <h1>Upload & Resize Image</h1>
+    <label for="image-input" id="upload-btn">Choose Image</label>
+    <input type="file" name="image" id="image-input" accept="image/*">
+    <div id="image-container">
+        <img id="uploaded-image" src="#" alt="Uploaded Image">
+        <div>
+            <label for="image-width">Width:</label>
+            <input type="number" id="image-width" value="1200">
+            <label for="image-height">Height:</label>
+            <input type="number" id="image-height" value="720">
+            <button id="resize-btn">Resize Image</button>
+        </div>
+        <a id="download-link" href="#" download="resized_image.jpg">Download Resized Image</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('image-input').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var uploadedImage = document.getElementById('uploaded-image');
+            uploadedImage.src = e.target.result;
+            uploadedImage.onload = function() {
+                document.getElementById('resize-btn').disabled = false;
+            }
+            document.getElementById('image-container').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('resize-btn').addEventListener('click', function() {
+        var uploadedImage = document.getElementById('uploaded-image');
+        var width = parseInt(document.getElementById('image-width').value);
+        var height = parseInt(document.getElementById('image-height').value);
+        resizeImage(uploadedImage, width, height);
+    });
+
+    function resizeImage(image, width, height) {
+        var canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0, width, height);
+        var resizedImageURL = canvas.toDataURL();
+        var downloadLink = document.getElementById('download-link');
+        downloadLink.href = resizedImageURL;
+        downloadLink.style.display = 'inline-block';
+    }
+</script>
+
+</body>
+</html>

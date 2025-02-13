@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get EC2 Metrics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        main {
+            position: relative;
+            z-index: 1;
+            margin-top: 80px;
+            padding: 20px;
+        }
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(50%);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #00ffd5;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+        label {
+            font-weight: bold;
+            color: #00ffd5;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .btn {
+            margin-top: 20px;
+            color: #ffffff;
+            background: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 255, 255, 0.6);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: rgba(0, 255, 255, 1);
+            transform: scale(1.05);
+        }
+        .form-control input {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-control input:focus {
+            border-color: #00ffd5;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body class="text-white flex flex-col items-center justify-center min-h-screen p-4 bg-gray-900">
+    <main>
+        <h1 class="text-4xl font-bold mb-8">Get EC2 Metrics</h1>
+        <form action="/cgi-bin/AWSfiles/ec2_metrics.py" method="post" class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6">
+            <div class="form-control">
+                <label for="instanceId" class="block text-sm font-medium mb-2">Instance ID:</label>
+                <input type="text" id="instanceId" name="instanceId" placeholder="Enter Instance ID" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-gray-300">
+            </div>
+            <div class="form-control">
+                <label for="awsAccessKey" class="block text-sm font-medium mb-2">AWS Access Key:</label>
+                <input type="text" id="awsAccessKey" name="awsAccessKey" placeholder="Enter AWS Access Key" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-gray-300">
+            </div>
+            <div class="form-control">
+                <label for="awsSecretKey" class="block text-sm font-medium mb-2">AWS Secret Key:</label>
+                <input type="text" id="awsSecretKey" name="awsSecretKey" placeholder="Enter AWS Secret Key" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-gray-300">
+            </div>
+            <div class="form-control">
+                <label for="regionName" class="block text-sm font-medium mb-2">Region Name:</label>
+                <input type="text" id="regionName" name="regionName" placeholder="Enter Region Name" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-gray-300">
+            </div>
+            <button type="submit" class="btn text-white py-3 px-6 rounded font-semibold">Get Metrics</button>
+        </form>
+        <div id="result" class="mt-6 p-4 bg-gray-800 rounded-lg w-full max-w-lg text-gray-300"></div>
+    </main>
+    <video autoplay muted loop id="bg-video">
+        <source src="/my portfolio/templates/dark-spiderman-neon-moewalls-com.mp4" type="video/mp4">
+    </video>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var params = new URLSearchParams(formData);
+
+            fetch('/cgi-bin/AWSfiles/ec2_metrics.py', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').innerText = data;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
