@@ -3,887 +3,815 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yash Agarwal - AI & Data Science Specialist</title>
-    <meta name="description" content="Portfolio of Yash Agarwal - AI & Data Science Specialist, Full Stack Developer, and DevOps Engineer">
+    <title>JARVIS Portfolio - Yash Agarwal | AI Engineer</title>
+    <meta name="description" content="JARVIS-powered portfolio of Yash Agarwal - AI Engineer, Data Scientist, and Full Stack Developer">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/jarvis.css">
+    
+    <!-- Meta tags for SEO -->
+    <meta name="keywords" content="AI Engineer, Data Science, Machine Learning, JARVIS, Portfolio, Yash Agarwal">
+    <meta name="author" content="Yash Agarwal">
+    <meta property="og:title" content="JARVIS Portfolio - Yash Agarwal">
+    <meta property="og:description" content="AI-powered portfolio showcasing innovative projects in AI, ML, and web development">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
+    <!-- Matrix Background -->
+    <div class="matrix-bg"></div>
+    
+    <!-- Holographic Grid -->
+    <div class="holo-grid"></div>
+    
+    <!-- Scan Lines -->
+    <div class="scan-lines"></div>
+    
+    <!-- Particles -->
+    <div class="particles"></div>
+
+    <!-- JARVIS Loading Screen -->
+    <div class="jarvis-loading" id="loadingScreen">
         <div class="loading-content">
-            <div class="loading-logo">
-                <span class="loading-text">YA</span>
+            <div class="jarvis-logo"></div>
+            <div class="loading-text">Initializing JARVIS...</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
             </div>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-            <p class="loading-message">Loading Portfolio...</p>
         </div>
     </div>
 
-    <!-- Cursor -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursorFollower"></div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-brand">
-                <span class="brand-icon">YA</span>
-                <span class="brand-text">Yash Agarwal</span>
-            </a>
-            
-            <div class="nav-menu" id="navMenu">
-                <a href="#home" class="nav-link active" data-section="home">
-                    <span class="nav-text">Home</span>
+    <!-- JARVIS Interface -->
+    <div class="jarvis-interface">
+        <!-- Navigation -->
+        <nav class="jarvis-nav" id="navbar">
+            <div class="nav-container">
+                <a href="#home" class="nav-brand">
+                    J.A.R.V.I.S
                 </a>
-                <a href="#about" class="nav-link" data-section="about">
-                    <span class="nav-text">About</span>
-                </a>
-                <a href="#experience" class="nav-link" data-section="experience">
-                    <span class="nav-text">Experience</span>
-                </a>
-                <a href="#skills" class="nav-link" data-section="skills">
-                    <span class="nav-text">Skills</span>
-                </a>
-                <a href="#projects" class="nav-link" data-section="projects">
-                    <span class="nav-text">Projects</span>
-                </a>
-                <a href="#contact" class="nav-link" data-section="contact">
-                    <span class="nav-text">Contact</span>
-                </a>
-            </div>
-            
-            <div class="nav-controls">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-sun"></i>
-                    <i class="fas fa-moon"></i>
-                </button>
+                
+                <div class="nav-menu" id="navMenu">
+                    <a href="#home" class="nav-link active">
+                        <span>HOME</span>
+                    </a>
+                    <a href="#about" class="nav-link">
+                        <span>ABOUT</span>
+                    </a>
+                    <a href="#skills" class="nav-link">
+                        <span>SKILLS</span>
+                    </a>
+                    <a href="#projects" class="nav-link">
+                        <span>PROJECTS</span>
+                    </a>
+                    <a href="#contact" class="nav-link">
+                        <span>CONTACT</span>
+                    </a>
+                </div>
+                
                 <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-bg">
-            <div class="hero-particles"></div>
-            <div class="hero-grid"></div>
-        </div>
-        
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
+        <!-- Hero Section -->
+        <section id="home" class="hero jarvis-section">
+            <div class="hero-container">
+                <div class="hero-content">
                     <div class="hero-greeting">
-                        <span class="greeting-text">Hello, I'm</span>
+                        SYSTEM ONLINE
                     </div>
                     <h1 class="hero-title">
-                        <span class="title-name">Yash Agarwal</span>
-                        <span class="title-role" id="typingText">AI & Data Science Specialist</span>
+                        YASH AGARWAL
                     </h1>
+                    <h2 class="hero-subtitle">
+                        <span class="typing-text">AI Engineer</span>
+                    </h2>
                     <p class="hero-description">
-                        Passionate developer specializing in Artificial Intelligence, Data Science, and innovative web solutions. 
-                        I transform complex ideas into intelligent, scalable applications that make a difference.
+                        Advanced AI systems engineer specializing in machine learning, 
+                        neural networks, and intelligent automation. Transforming complex 
+                        algorithms into revolutionary applications.
                     </p>
+                    
                     <div class="hero-stats">
                         <div class="stat-item">
                             <span class="stat-number" data-count="30">0</span>
-                            <span class="stat-label">Projects</span>
+                            <span class="stat-label">PROJECTS</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number" data-count="20">0</span>
-                            <span class="stat-label">Certificates</span>
+                            <span class="stat-label">CERTIFICATES</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-number" data-count="52">0</span>
-                            <span class="stat-label">Skills</span>
+                            <span class="stat-label">SKILLS</span>
                         </div>
                     </div>
+                    
                     <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">
-                            <span>View My Work</span>
-                            <i class="fas fa-arrow-right"></i>
+                        <a href="#projects" class="jarvis-btn primary">
+                            <span>VIEW PROJECTS</span>
+                            <i class="fas fa-rocket"></i>
                         </a>
-                        <a href="#contact" class="btn btn-secondary">
-                            <span>Get In Touch</span>
-                            <i class="fas fa-envelope"></i>
+                        <a href="#contact" class="jarvis-btn">
+                            <span>INITIATE CONTACT</span>
+                            <i class="fas fa-satellite-dish"></i>
                         </a>
-                        <a href="/Port/Yash_Agarwal_Resume_ATS.docx" class="btn btn-outline" download>
-                            <span>Download CV</span>
+                        <a href="/Port/Yash_Agarwal_Resume_ATS.docx" class="jarvis-btn" download>
+                            <span>DOWNLOAD DATA</span>
                             <i class="fas fa-download"></i>
                         </a>
                     </div>
                 </div>
                 
                 <div class="hero-visual">
-                    <div class="profile-container">
-                        <div class="profile-image-wrapper">
-                            <img src="Port/images/1-removebg-preview.png" alt="Yash Agarwal" class="profile-image">
-                            <div class="profile-glow"></div>
+                    <div class="jarvis-avatar">
+                        <div class="avatar-container">
+                            <img src="Port/images/1-removebg-preview.png" alt="Yash Agarwal" class="avatar-image">
+                            <div class="avatar-overlay"></div>
                         </div>
-                        <div class="floating-elements">
-                            <div class="floating-icon" data-tech="python">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <div class="floating-icon" data-tech="aws">
-                                <i class="fab fa-aws"></i>
-                            </div>
-                            <div class="floating-icon" data-tech="docker">
-                                <i class="fab fa-docker"></i>
-                            </div>
-                            <div class="floating-icon" data-tech="react">
-                                <i class="fab fa-react"></i>
-                            </div>
+                        <div class="holo-rings">
+                            <div class="holo-ring"></div>
+                            <div class="holo-ring"></div>
+                            <div class="holo-ring"></div>
                         </div>
+                        <div class="floating-data">CPU: 98%</div>
+                        <div class="floating-data">MEM: 85%</div>
+                        <div class="floating-data">NET: OPTIMAL</div>
+                        <div class="floating-data">AI: ACTIVE</div>
                     </div>
                 </div>
             </div>
-            
-            <div class="scroll-indicator">
-                <div class="scroll-mouse">
-                    <div class="scroll-wheel"></div>
-                </div>
-                <span class="scroll-text">Scroll to explore</span>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Get to know me</span>
-                <h2 class="section-title">About Me</h2>
-                <p class="section-subtitle">Crafting digital experiences with precision and innovation</p>
-            </div>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <div class="about-intro">
-                        <h3>Turning Ideas Into Reality</h3>
-                        <p>
-                            I'm a passionate developer specializing in Artificial Intelligence and Data Science, 
-                            currently pursuing my BTech at Arya College of Engineering. With expertise in Python, 
-                            machine learning, and web development, I create innovative solutions that bridge 
-                            technology and real-world applications.
-                        </p>
-                    </div>
-                    
-                    <div class="about-details">
-                        <div class="detail-group">
-                            <h4>Personal Information</h4>
-                            <div class="detail-items">
-                                <div class="detail-item">
-                                    <i class="fas fa-user"></i>
-                                    <span class="detail-label">Name:</span>
-                                    <span class="detail-value">Yash Agarwal</span>
+        <!-- About Section -->
+        <section id="about" class="about jarvis-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">SYSTEM ANALYSIS</span>
+                    <h2 class="section-title">ABOUT PROTOCOL</h2>
+                    <p class="section-subtitle">
+                        Comprehensive analysis of capabilities and operational parameters
+                    </p>
+                </div>
+                
+                <div class="about-grid">
+                    <div class="about-content">
+                        <div class="about-panel">
+                            <h3>CORE DIRECTIVE</h3>
+                            <p>
+                                Primary mission: Develop intelligent systems that enhance human capabilities 
+                                through advanced AI and machine learning technologies. Specializing in 
+                                neural network architectures, data science, and autonomous system design.
+                            </p>
+                        </div>
+                        
+                        <div class="about-panel">
+                            <h3>OPERATIONAL STATUS</h3>
+                            <div class="data-points">
+                                <div class="data-point">
+                                    <div class="data-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="data-info">
+                                        <div class="data-label">IDENTITY</div>
+                                        <div class="data-value">Yash Agarwal</div>
+                                    </div>
                                 </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-calendar"></i>
-                                    <span class="detail-label">Date of Birth:</span>
-                                    <span class="detail-value">October 16, 2005</span>
+                                
+                                <div class="data-point">
+                                    <div class="data-icon">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="data-info">
+                                        <div class="data-label">BIRTH DATE</div>
+                                        <div class="data-value">Oct 16, 2005</div>
+                                    </div>
                                 </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span class="detail-label">Location:</span>
-                                    <span class="detail-value">Jaipur, Rajasthan, India</span>
+                                
+                                <div class="data-point">
+                                    <div class="data-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="data-info">
+                                        <div class="data-label">LOCATION</div>
+                                        <div class="data-value">Jaipur, India</div>
+                                    </div>
                                 </div>
-                                <div class="detail-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <span class="detail-label">Email:</span>
-                                    <span class="detail-value">yashagarwala2709@gmail.com</span>
+                                
+                                <div class="data-point">
+                                    <div class="data-icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="data-info">
+                                        <div class="data-label">EDUCATION</div>
+                                        <div class="data-value">BTech AI & DS</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="detail-group">
-                            <h4>What I Do</h4>
-                            <div class="services-list">
-                                <div class="service-item">
-                                    <i class="fas fa-brain"></i>
-                                    <div>
-                                        <h5>AI & Machine Learning</h5>
-                                        <p>Developing intelligent systems and ML models</p>
-                                    </div>
-                                </div>
-                                <div class="service-item">
-                                    <i class="fas fa-code"></i>
-                                    <div>
-                                        <h5>Full Stack Development</h5>
-                                        <p>Building scalable web applications</p>
-                                    </div>
-                                </div>
-                                <div class="service-item">
-                                    <i class="fas fa-cloud"></i>
-                                    <div>
-                                        <h5>Cloud & DevOps</h5>
-                                        <p>Deploying and managing cloud infrastructure</p>
-                                    </div>
-                                </div>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <div class="terminal-dot"></div>
+                                <span>JARVIS Terminal v2.0</span>
+                            </div>
+                            <div class="terminal-content">
+                                <div><span class="terminal-prompt">jarvis@portfolio:~$</span> <span class="terminal-command">whoami</span></div>
+                                <div>AI Engineer & Data Scientist</div>
+                                <div><span class="terminal-prompt">jarvis@portfolio:~$</span> <span class="terminal-command">status</span></div>
+                                <div>All systems operational</div>
+                                <div><span class="terminal-prompt">jarvis@portfolio:~$</span> <span class="terminal-command">mission</span></div>
+                                <div>Advancing AI for humanity</div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="about-visual">
-                    <div class="about-image">
-                        <img src="Port/images/about.png" alt="About Yash Agarwal">
-                        <div class="image-decoration"></div>
                     </div>
                     
-                    <div class="achievement-cards">
-                        <div class="achievement-card">
-                            <div class="achievement-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                    <div class="about-visual">
+                        <div class="holo-display">
+                            <h3 class="holo-text">CURRENT OBJECTIVES</h3>
+                            <div class="energy-bar">
+                                <div class="energy-fill"></div>
                             </div>
-                            <div class="achievement-content">
-                                <h4>Education</h4>
-                                <p>BTech in AI & Data Science</p>
-                                <span>Arya College of Engineering</span>
+                            
+                            <div class="data-viz">
+                                <span>AI Development</span>
+                                <div class="data-bar">
+                                    <div class="data-fill" style="width: 95%;"></div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="achievement-card">
-                            <div class="achievement-icon">
-                                <i class="fas fa-briefcase"></i>
+                            
+                            <div class="data-viz">
+                                <span>Machine Learning</span>
+                                <div class="data-bar">
+                                    <div class="data-fill" style="width: 90%;"></div>
+                                </div>
                             </div>
-                            <div class="achievement-content">
-                                <h4>Current Role</h4>
-                                <p>DevOps Intern</p>
-                                <span>LinuxWorld Informatics</span>
+                            
+                            <div class="data-viz">
+                                <span>Cloud Computing</span>
+                                <div class="data-bar">
+                                    <div class="data-fill" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="data-viz">
+                                <span>DevOps</span>
+                                <div class="data-bar">
+                                    <div class="data-fill" style="width: 88%;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">My Journey</span>
-                <h2 class="section-title">Experience & Education</h2>
-                <p class="section-subtitle">Building expertise through continuous learning and hands-on experience</p>
-            </div>
-            
-            <div class="timeline">
-                <div class="timeline-item" data-year="2024">
-                    <div class="timeline-marker">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>DevOps Intern</h3>
-                            <span class="timeline-company">LinuxWorld Informatics Pvt Ltd</span>
-                            <span class="timeline-date">2024 - Present</span>
-                        </div>
-                        <p class="timeline-description">
-                            Intensive internship focusing on DevOps, Docker, Kubernetes, and Minikube for efficient containerization. 
-                            Delving into Machine Learning and enhancing Python skills with Flask API development. 
-                            Gaining hands-on experience with AWS services like EC2, Lambda, and RDS.
-                        </p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">DevOps</span>
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Kubernetes</span>
-                            <span class="skill-tag">AWS</span>
-                            <span class="skill-tag">Flask</span>
-                        </div>
-                    </div>
+        <!-- Skills Section -->
+        <section id="skills" class="skills jarvis-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">CAPABILITY MATRIX</span>
+                    <h2 class="section-title">TECHNICAL ARSENAL</h2>
+                    <p class="section-subtitle">
+                        Advanced technological capabilities and operational proficiencies
+                    </p>
                 </div>
                 
-                <div class="timeline-item" data-year="2024">
-                    <div class="timeline-marker">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Data Science Certification</h3>
-                            <span class="timeline-company">Cisco Networking Academy</span>
-                            <span class="timeline-date">2024</span>
-                        </div>
-                        <p class="timeline-description">
-                            Successfully achieved student level credential for completing the Introduction To Data Science course, 
-                            gaining foundational knowledge in data analysis and visualization.
-                        </p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">Data Science</span>
-                            <span class="skill-tag">Analytics</span>
-                            <span class="skill-tag">Visualization</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-year="2022">
-                    <div class="timeline-marker">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>BTech in AI & Data Science</h3>
-                            <span class="timeline-company">Arya College of Engineering</span>
-                            <span class="timeline-date">2022 - 2026</span>
-                        </div>
-                        <p class="timeline-description">
-                            Pursuing Bachelor's of Technology in Artificial Intelligence and Data Science, 
-                            focusing on machine learning algorithms, data structures, and AI applications.
-                        </p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">AI</span>
-                            <span class="skill-tag">Data Science</span>
-                            <span class="skill-tag">Machine Learning</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" data-year="2022">
-                    <div class="timeline-marker">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <h3>Robotics Intern</h3>
-                            <span class="timeline-company">Learn and Build</span>
-                            <span class="timeline-date">2022 - 2023</span>
-                        </div>
-                        <p class="timeline-description">
-                            Comprehensive robotics training with Arduino IDE, Arduino UNO, and ICIC Proteus. 
-                            Developed practical projects including smart dustbin, self-balancing robot, 
-                            line follower, and object detection systems.
-                        </p>
-                        <div class="timeline-skills">
-                            <span class="skill-tag">Arduino</span>
-                            <span class="skill-tag">Robotics</span>
-                            <span class="skill-tag">IoT</span>
-                            <span class="skill-tag">Hardware</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">What I Know</span>
-                <h2 class="section-title">Technical Skills</h2>
-                <p class="section-subtitle">Technologies and tools I use to bring ideas to life</p>
-            </div>
-            
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <div class="category-header">
-                        <div class="category-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Programming Languages</h3>
-                    </div>
-                    <div class="skills-list">
-                        <div class="skill-item">
+                <div class="skills-grid">
+                    <div class="skill-panel">
+                        <div class="skill-header">
                             <div class="skill-icon">
-                                <i class="fab fa-python"></i>
+                                <i class="fas fa-brain"></i>
                             </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Python</span>
+                            <h3>AI & MACHINE LEARNING</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Python</span>
+                                    <span class="skill-level">95%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="95"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">TensorFlow</span>
+                                    <span class="skill-level">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">PyTorch</span>
+                                    <span class="skill-level">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="80"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Scikit-learn</span>
+                                    <span class="skill-level">90%</span>
+                                </div>
                                 <div class="skill-bar">
                                     <div class="skill-progress" data-progress="90"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="skill-item">
+                    </div>
+                    
+                    <div class="skill-panel">
+                        <div class="skill-header">
                             <div class="skill-icon">
-                                <i class="fab fa-java"></i>
+                                <i class="fas fa-code"></i>
                             </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Java</span>
+                            <h3>DEVELOPMENT STACK</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">JavaScript</span>
+                                    <span class="skill-level">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="90"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">React</span>
+                                    <span class="skill-level">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Flask</span>
+                                    <span class="skill-level">88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="88"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Node.js</span>
+                                    <span class="skill-level">75%</span>
+                                </div>
                                 <div class="skill-bar">
                                     <div class="skill-progress" data-progress="75"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="skill-item">
+                    </div>
+                    
+                    <div class="skill-panel">
+                        <div class="skill-header">
                             <div class="skill-icon">
-                                <i class="fab fa-js"></i>
+                                <i class="fas fa-cloud"></i>
                             </div>
-                            <div class="skill-info">
-                                <span class="skill-name">JavaScript</span>
+                            <h3>CLOUD & DEVOPS</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">AWS</span>
+                                    <span class="skill-level">85%</span>
+                                </div>
                                 <div class="skill-bar">
                                     <div class="skill-progress" data-progress="85"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fab fa-html5"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">HTML5</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="95"></div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Docker</span>
+                                    <span class="skill-level">90%</span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fab fa-css3-alt"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">CSS3</span>
                                 <div class="skill-bar">
                                     <div class="skill-progress" data-progress="90"></div>
                                 </div>
                             </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Kubernetes</span>
+                                    <span class="skill-level">75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="75"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">CI/CD</span>
+                                    <span class="skill-level">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="80"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="skill-category">
-                    <div class="category-header">
-                        <div class="category-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h3>Frameworks & Tools</h3>
-                    </div>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Flask</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="85"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fab fa-react"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">React</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="70"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Flutter</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="65"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
+                    
+                    <div class="skill-panel">
+                        <div class="skill-header">
                             <div class="skill-icon">
                                 <i class="fas fa-database"></i>
                             </div>
-                            <div class="skill-info">
-                                <span class="skill-name">MySQL</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="80"></div>
+                            <h3>DATA SYSTEMS</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">MySQL</span>
+                                    <span class="skill-level">85%</span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skill-category">
-                    <div class="category-header">
-                        <div class="category-icon">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <h3>Cloud & DevOps</h3>
-                    </div>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fab fa-aws"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">AWS</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="80"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fab fa-docker"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Docker</span>
                                 <div class="skill-bar">
                                     <div class="skill-progress" data-progress="85"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fas fa-dharmachakra"></i>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">MongoDB</span>
+                                    <span class="skill-level">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="80"></div>
+                                </div>
                             </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Kubernetes</span>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">PostgreSQL</span>
+                                    <span class="skill-level">75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-progress="75"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Redis</span>
+                                    <span class="skill-level">70%</span>
+                                </div>
                                 <div class="skill-bar">
                                     <div class="skill-progress" data-progress="70"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-icon">
-                                <i class="fab fa-git-alt"></i>
-                            </div>
-                            <div class="skill-info">
-                                <span class="skill-name">Git</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-progress="90"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects jarvis-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">PROJECT DATABASE</span>
+                    <h2 class="section-title">MISSION ARCHIVES</h2>
+                    <p class="section-subtitle">
+                        Classified projects and technological innovations
+                    </p>
+                </div>
+                
+                <div class="projects-filter">
+                    <button class="filter-btn active" data-filter="all">ALL PROJECTS</button>
+                    <button class="filter-btn" data-filter="web">WEB SYSTEMS</button>
+                    <button class="filter-btn" data-filter="ai">AI MODULES</button>
+                    <button class="filter-btn" data-filter="devops">DEVOPS TOOLS</button>
+                    <button class="filter-btn" data-filter="aws">CLOUD SYSTEMS</button>
+                </div>
+                
+                <div class="projects-grid">
+                    <!-- Featured Project - ManasMitra -->
+                    <div class="project-card" data-category="ai">
+                        <div class="project-image">
+                            <img src="Port/images/manas.png" alt="ManasMitra AI">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="https://www.linkedin.com/search/results/all/?heroEntityKey=urn%3Ali%3Aorganization%3A104112688&keywords=Manas%20Mitra&origin=ENTITY_SEARCH_HOME_HISTORY" class="project-link" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="https://www.ijrrr.com/papers17-2/issues17-2-18.htm" class="project-link" target="_blank">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                        <div class="project-content">
+                            <h3 class="project-title">MANASMITRA AI PLATFORM</h3>
+                            <p class="project-description">
+                                Advanced AI-powered mental health platform with intelligent counselor matching 
+                                and 24/7 support capabilities. Features neural network-based analysis.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">AI</span>
+                                <span class="tag">NEURAL NETWORKS</span>
+                                <span class="tag">HEALTHCARE</span>
+                                <span class="tag">RESEARCH</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Web Development Projects -->
+                    <div class="project-card" data-category="web">
+                        <div class="project-image">
+                            <img src="Port/images/HTML.jpg" alt="Interactive Window System">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="Port/Menu/HTMLTasks/draggable.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">INTERACTIVE WINDOW SYSTEM</h3>
+                            <p class="project-description">
+                                Advanced window management interface with drag, resize, and multi-state functionality.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">JAVASCRIPT</span>
+                                <span class="tag">UI/UX</span>
+                                <span class="tag">INTERACTIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" data-category="web">
+                        <div class="project-image">
+                            <img src="Port/images/html5.jpg" alt="Live Code Interpreter">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="Port/Menu/html_live_interpreter.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">LIVE CODE INTERPRETER</h3>
+                            <p class="project-description">
+                                Real-time HTML/CSS/JS interpreter with live preview and syntax highlighting.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">REAL-TIME</span>
+                                <span class="tag">COMPILER</span>
+                                <span class="tag">EDITOR</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DevOps Projects -->
+                    <div class="project-card" data-category="devops">
+                        <div class="project-image">
+                            <img src="Port/images/docker.jpg" alt="Container Management">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="Port/Menu/docker.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">CONTAINER ORCHESTRATION</h3>
+                            <p class="project-description">
+                                Advanced Docker management system with monitoring and automated deployment.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">DOCKER</span>
+                                <span class="tag">ORCHESTRATION</span>
+                                <span class="tag">MONITORING</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AWS Projects -->
+                    <div class="project-card" data-category="aws">
+                        <div class="project-image">
+                            <img src="Port/images/aws1.jpg" alt="AWS Management">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="Port/Menu/AWSfiles/boto3.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">AWS COMMAND CENTER</h3>
+                            <p class="project-description">
+                                Comprehensive AWS infrastructure management with automated scaling and monitoring.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">AWS</span>
+                                <span class="tag">BOTO3</span>
+                                <span class="tag">AUTOMATION</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" data-category="ai">
+                        <div class="project-image">
+                            <img src="Port/images/aws5.jpg" alt="AI Text Generator">
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    <a href="Port/Menu/gemini.html" class="project-link">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">AI TEXT SYNTHESIS</h3>
+                            <p class="project-description">
+                                Advanced natural language processing system for intelligent text generation.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag">NLP</span>
+                                <span class="tag">AI</span>
+                                <span class="tag">TEXT GENERATION</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
+                <div class="projects-cta" style="text-align: center; margin-top: 3rem;">
+                    <a href="projec.html" class="jarvis-btn primary">
+                        <span>ACCESS FULL DATABASE</span>
+                        <i class="fas fa-database"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">My Work</span>
-                <h2 class="section-title">Featured Projects</h2>
-                <p class="section-subtitle">Showcasing my latest innovations and technical achievements</p>
-            </div>
-            
-            <div class="projects-filter">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="web">Web Development</button>
-                <button class="filter-btn" data-filter="ai">AI & ML</button>
-                <button class="filter-btn" data-filter="devops">DevOps</button>
-                <button class="filter-btn" data-filter="aws">AWS</button>
-            </div>
-            
-            <div class="projects-grid">
-                <!-- Featured Project - ManasMitra -->
-                <div class="project-card featured" data-category="ai">
-                    <div class="project-image">
-                        <img src="Port/images/manas.png" alt="ManasMitra">
-                        <div class="project-overlay">
-                            <div class="project-actions">
-                                <a href="https://www.linkedin.com/search/results/all/?heroEntityKey=urn%3Ali%3Aorganization%3A104112688&keywords=Manas%20Mitra&origin=ENTITY_SEARCH_HOME_HISTORY" class="project-btn" target="_blank">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                                <a href="https://www.ijrrr.com/papers17-2/issues17-2-18.htm" class="project-btn" target="_blank">
-                                    <i class="fas fa-file-pdf"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="project-badge">Featured</div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">ManasMitra</h3>
-                        <p class="project-description">
-                            AI-powered mental health platform that connects users with expert counselors through 
-                            intelligent matching algorithms. Features 24/7 availability and personalized care recommendations.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">AI</span>
-                            <span class="tech-tag">Mental Health</span>
-                            <span class="tech-tag">Platform</span>
-                            <span class="tech-tag">Research</span>
-                        </div>
-                    </div>
+        <!-- Contact Section -->
+        <section id="contact" class="contact jarvis-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-tag">COMMUNICATION PROTOCOL</span>
+                    <h2 class="section-title">ESTABLISH CONNECTION</h2>
+                    <p class="section-subtitle">
+                        Initiate secure communication channel for collaboration
+                    </p>
                 </div>
                 
-                <!-- Web Development Projects -->
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="Port/images/HTML.jpg" alt="Interactive Window">
-                        <div class="project-overlay">
-                            <div class="project-actions">
-                                <a href="Port/Menu/HTMLTasks/draggable.html" class="project-btn">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>COORDINATES</h4>
+                                <p>Murlipura, Jaipur<br>Rajasthan, India 302039</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Interactive Draggable Window</h3>
-                        <p class="project-description">
-                            Advanced window management system with drag, resize, minimize, and maximize functionality.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">CSS3</span>
-                            <span class="tech-tag">Interactive UI</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="Port/images/html5.jpg" alt="HTML Live Interpreter">
-                        <div class="project-overlay">
-                            <div class="project-actions">
-                                <a href="Port/Menu/html_live_interpreter.html" class="project-btn">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-satellite-dish"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>COMMUNICATION LINK</h4>
+                                <p>+91 8003664759</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">HTML Live Interpreter</h3>
-                        <p class="project-description">
-                            Real-time HTML editor with live preview functionality for rapid prototyping and learning.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML5</span>
-                            <span class="tech-tag">Real-time</span>
-                            <span class="tech-tag">Editor</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- DevOps Projects -->
-                <div class="project-card" data-category="devops">
-                    <div class="project-image">
-                        <img src="Port/images/docker.jpg" alt="Docker Management">
-                        <div class="project-overlay">
-                            <div class="project-actions">
-                                <a href="Port/Menu/docker.html" class="project-btn">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>DATA TRANSMISSION</h4>
+                                <p>yashagarwala2709@gmail.com</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Docker Management Dashboard</h3>
-                        <p class="project-description">
-                            Comprehensive Docker container management interface with monitoring and orchestration.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">DevOps</span>
-                            <span class="tech-tag">Monitoring</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- AWS Projects -->
-                <div class="project-card" data-category="aws">
-                    <div class="project-image">
-                        <img src="Port/images/aws1.jpg" alt="AWS Management">
-                        <div class="project-overlay">
-                            <div class="project-actions">
-                                <a href="Port/Menu/AWSfiles/boto3.html" class="project-btn">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>NETWORK ACCESS</h4>
+                                <p>ManasMitra.site</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">AWS Instance Manager</h3>
-                        <p class="project-description">
-                            Automated AWS EC2 instance management with launch, monitoring, and scaling capabilities.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">AWS</span>
-                            <span class="tech-tag">Boto3</span>
-                            <span class="tech-tag">EC2</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card" data-category="ai">
-                    <div class="project-image">
-                        <img src="Port/images/aws5.jpg" alt="AI Text Generator">
-                        <div class="project-overlay">
-                            <div class="project-actions">
-                                <a href="Port/Menu/gemini.html" class="project-btn">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">AI Text Generation Platform</h3>
-                        <p class="project-description">
-                            Advanced AI-powered text generation system using machine learning models for content creation.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Machine Learning</span>
-                            <span class="tech-tag">NLP</span>
-                            <span class="tech-tag">AI</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="projects-cta">
-                <a href="projec.html" class="btn btn-primary">
-                    <span>View All Projects</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Let's Connect</span>
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle">Ready to discuss your next project or collaboration opportunity</p>
-            </div>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Location</h4>
-                            <p>Murlipura, Jaipur<br>Rajasthan, India 302039</p>
+                        
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/yash-agarwal-632418259/" class="social-link" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://github.com/yashagarwal16" class="social-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.instagram.com/yash_agr2005?igsh=MWZhZGltZzZxMjhnZA==" class="social-link" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Phone</h4>
-                            <p>+91 8003664759</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>yashagarwala2709@gmail.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/yash-agarwal-632418259/" class="social-link" target="_blank">
-                            <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://github.com/yashagarwal16" class="social-link" target="_blank">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
-                        </a>
-                        <a href="https://www.instagram.com/yash_agr2005?igsh=MWZhZGltZzZxMjhnZA==" class="social-link" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                            <span>Instagram</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form class="form" id="contactForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" class="form-input" required>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">IDENTITY</label>
+                                    <input type="text" class="form-input" placeholder="Enter your name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">TRANSMISSION ID</label>
+                                    <input type="email" class="form-input" placeholder="Enter your email" required>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" class="form-input" required>
+                                <label class="form-label">MESSAGE HEADER</label>
+                                <input type="text" class="form-input" placeholder="Enter subject" required>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" class="form-input" rows="6" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <span>Send Message</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
+                            <div class="form-group">
+                                <label class="form-label">DATA PAYLOAD</label>
+                                <textarea class="form-input" rows="6" placeholder="Enter your message" required></textarea>
+                            </div>
+                            <button type="submit" class="jarvis-btn primary">
+                                <span>TRANSMIT MESSAGE</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
+        <!-- Footer -->
+        <footer class="footer">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="brand-icon">YA</div>
-                    <div class="brand-info">
-                        <h4>Yash Agarwal</h4>
-                        <p>AI & Data Science Specialist</p>
-                    </div>
+                <div class="footer-text">
+                    <p>&copy; 2024 YASH AGARWAL - AI SYSTEMS ENGINEER</p>
+                    <p>POWERED BY JARVIS TECHNOLOGY</p>
                 </div>
                 
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h5>Navigation</h5>
-                        <a href="#home">Home</a>
-                        <a href="#about">About</a>
-                        <a href="#experience">Experience</a>
-                        <a href="#skills">Skills</a>
-                    </div>
-                    <div class="link-group">
-                        <h5>Projects</h5>
-                        <a href="#projects">All Projects</a>
-                        <a href="projec.html">Project Gallery</a>
-                        <a href="#contact">Collaboration</a>
-                    </div>
-                    <div class="link-group">
-                        <h5>Connect</h5>
-                        <a href="https://www.linkedin.com/in/yash-agarwal-632418259/" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/yashagarwal16" target="_blank">GitHub</a>
-                        <a href="mailto:yashagarwala2709@gmail.com">Email</a>
-                    </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/yash-agarwal-632418259/" class="social-link" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/yashagarwal16" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/yash_agr2005?igsh=MWZhZGltZzZxMjhnZA==" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                
+                <div class="copyright">
+                    <p>ALL RIGHTS RESERVED | JARVIS PROTOCOL ACTIVE</p>
                 </div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 Yash Agarwal. All rights reserved.</p>
-                <p>Designed & Developed with <i class="fas fa-heart"></i> by Yash Agarwal</p>
+        </footer>
+    </div>
+
+    <!-- Voice Recognition Indicator -->
+    <div class="voice-indicator" title="Voice Commands">
+        <i class="fas fa-microphone"></i>
+    </div>
+
+    <!-- AI Assistant Panel -->
+    <div class="ai-assistant">
+        <div class="ai-header">
+            <div class="ai-avatar">J</div>
+            <div class="ai-status">
+                <div class="ai-name">JARVIS</div>
+                <div class="ai-state">ONLINE</div>
             </div>
         </div>
-    </footer>
-
-    <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+        <div class="ai-message">
+            Ready to assist with navigation and information.
+        </div>
+    </div>
 
     <!-- Scripts -->
-    <script src="js/main.js"></script>
+    <script src="js/jarvis.js"></script>
 </body>
 </html>

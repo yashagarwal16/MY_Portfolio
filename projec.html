@@ -1,598 +1,910 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Projects - Yash Agarwal Portfolio</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS Project Database - Yash Agarwal</title>
+    <meta name="description" content="Complete project archive of JARVIS-powered AI systems and applications">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/projects.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/jarvis.css">
+    
+    <style>
+        /* Additional styles for projects page */
+        .projects-hero {
+            min-height: 60vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projects-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(0, 255, 255, 0.1) 0%, transparent 50%);
+            animation: hero-glow 4s ease-in-out infinite alternate;
+        }
+        
+        .projects-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            color: var(--text-primary);
+            text-shadow: 0 0 30px var(--jarvis-blue);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .projects-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--jarvis-cyan);
+            text-shadow: var(--glow-secondary);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+        
+        .search-wrapper {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--jarvis-blue);
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--jarvis-cyan);
+            box-shadow: var(--glow-secondary);
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--jarvis-blue);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+        
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .stat-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--jarvis-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: stat-scan 3s ease-in-out infinite;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-primary);
+        }
+        
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--jarvis-gold);
+            text-shadow: 0 0 20px var(--jarvis-gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--jarvis-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes hero-glow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes stat-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Enhanced project grid for full page */
+        .full-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .project-category-header {
+            grid-column: 1 / -1;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: var(--jarvis-blue);
+            text-shadow: var(--glow-primary);
+            margin: 3rem 0 1rem 0;
+            padding: 1rem;
+            border-bottom: 2px solid var(--jarvis-blue);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
 </head>
-<body data-theme="light">
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
-    </button>
+<body>
+    <!-- Matrix Background -->
+    <div class="matrix-bg"></div>
+    
+    <!-- Holographic Grid -->
+    <div class="holo-grid"></div>
+    
+    <!-- Scan Lines -->
+    <div class="scan-lines"></div>
+    
+    <!-- Particles -->
+    <div class="particles"></div>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="jarvis-nav" id="navbar">
         <div class="nav-container">
-            <a class="navbar-brand" href="index.html">
-                <span class="brand-text">YASH AGARWAL</span>
-                <span class="brand-subtitle">Projects Portfolio</span>
+            <a href="index.html" class="nav-brand">
+                J.A.R.V.I.S
             </a>
             
-            <div class="nav-menu">
+            <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link">
-                    <i class="fas fa-home"></i>
-                    Home
+                    <span>HOME</span>
+                </a>
+                <a href="index.html#about" class="nav-link">
+                    <span>ABOUT</span>
+                </a>
+                <a href="index.html#skills" class="nav-link">
+                    <span>SKILLS</span>
+                </a>
+                <a href="#projects" class="nav-link active">
+                    <span>PROJECTS</span>
+                </a>
+                <a href="index.html#contact" class="nav-link">
+                    <span>CONTACT</span>
                 </a>
             </div>
+            
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">My Projects</h1>
-                <p class="hero-description">
-                    Explore my collection of innovative projects spanning web development, 
-                    AI/ML, DevOps, and cloud technologies.
-                </p>
+    <!-- Projects Hero -->
+    <section class="projects-hero">
+        <div class="section-container">
+            <h1 class="projects-title">PROJECT DATABASE</h1>
+            <p class="projects-subtitle">CLASSIFIED MISSIONS & TECHNOLOGICAL INNOVATIONS</p>
+        </div>
+    </section>
+
+    <!-- Project Statistics -->
+    <section class="jarvis-section">
+        <div class="section-container">
+            <div class="project-stats">
+                <div class="stat-card">
+                    <span class="stat-number" data-count="15">0</span>
+                    <span class="stat-label">WEB SYSTEMS</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="8">0</span>
+                    <span class="stat-label">AI MODULES</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="10">0</span>
+                    <span class="stat-label">CLOUD TOOLS</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="5">0</span>
+                    <span class="stat-label">DEVOPS SOLUTIONS</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Grid -->
-    <section class="projects">
-        <div class="container">
-            <!-- Filter Tabs -->
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="all">All Projects</button>
-                <button class="filter-tab" data-filter="web">Web Development</button>
-                <button class="filter-tab" data-filter="ai">AI & ML</button>
-                <button class="filter-tab" data-filter="devops">DevOps</button>
-                <button class="filter-tab" data-filter="aws">AWS</button>
+    <!-- Search and Filter -->
+    <section class="jarvis-section">
+        <div class="section-container">
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" placeholder="SEARCH PROJECT DATABASE..." id="projectSearch">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
             </div>
+            
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">ALL PROJECTS</button>
+                <button class="filter-btn" data-filter="web">WEB SYSTEMS</button>
+                <button class="filter-btn" data-filter="ai">AI MODULES</button>
+                <button class="filter-btn" data-filter="devops">DEVOPS TOOLS</button>
+                <button class="filter-btn" data-filter="aws">CLOUD SYSTEMS</button>
+            </div>
+        </div>
+    </section>
 
-            <!-- Projects Grid -->
-            <div class="projects-grid">
-                <!-- HTML/Web Projects -->
+    <!-- Full Projects Grid -->
+    <section id="projects" class="projects jarvis-section">
+        <div class="section-container">
+            <div class="full-projects-grid">
+                <!-- Web Development Category -->
+                <div class="project-category-header">WEB DEVELOPMENT SYSTEMS</div>
+                
                 <div class="project-card" data-category="web">
                     <div class="project-image">
-                        <img src="images/HTML.jpg" alt="Draggable Window">
+                        <img src="Port/images/HTML.jpg" alt="Interactive Window System">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/HTMLTasks/draggable.html" class="project-link">
+                                <a href="Port/Menu/HTMLTasks/draggable.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">Interactive Draggable Window</h3>
-                        <p class="project-description">A fully interactive window system with drag, resize, minimize, and maximize functionality built with vanilla JavaScript.</p>
+                        <h3 class="project-title">INTERACTIVE WINDOW SYSTEM</h3>
+                        <p class="project-description">
+                            Advanced window management interface with drag, resize, minimize, and maximize functionality.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">CSS3</span>
-                            <span class="tag">Interactive</span>
+                            <span class="tag">JAVASCRIPT</span>
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">INTERACTIVE</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="web">
                     <div class="project-image">
-                        <img src="images/html5.jpg" alt="HTML Live Interpreter">
+                        <img src="Port/images/html5.jpg" alt="Live Code Interpreter">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/html_live_interpreter.html" class="project-link">
+                                <a href="Port/Menu/html_live_interpreter.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">HTML Live Interpreter</h3>
-                        <p class="project-description">Real-time HTML editor and interpreter with live preview functionality for rapid prototyping and learning.</p>
+                        <h3 class="project-title">LIVE CODE INTERPRETER</h3>
+                        <p class="project-description">
+                            Real-time HTML/CSS/JS interpreter with live preview and syntax highlighting capabilities.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">HTML5</span>
-                            <span class="tag">Real-time</span>
-                            <span class="tag">Editor</span>
+                            <span class="tag">REAL-TIME</span>
+                            <span class="tag">COMPILER</span>
+                            <span class="tag">EDITOR</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="web">
                     <div class="project-image">
-                        <img src="images/html4.jpg" alt="Image Upload Tool">
+                        <img src="Port/images/html4.jpg" alt="Image Processing System">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/HTMLTasks/upload_image.html" class="project-link">
+                                <a href="Port/Menu/HTMLTasks/upload_image.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">Image Upload & Resize Tool</h3>
-                        <p class="project-description">Advanced image processing tool with upload, resize, and download capabilities using HTML5 Canvas API.</p>
+                        <h3 class="project-title">IMAGE PROCESSING MATRIX</h3>
+                        <p class="project-description">
+                            Advanced image upload, resize, and processing system with real-time manipulation.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">Canvas API</span>
-                            <span class="tag">File Upload</span>
-                            <span class="tag">Image Processing</span>
+                            <span class="tag">CANVAS API</span>
+                            <span class="tag">IMAGE PROCESSING</span>
+                            <span class="tag">UPLOAD</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="web">
                     <div class="project-image">
-                        <img src="images/pq2.jpg" alt="Text to Speech">
+                        <img src="Port/images/pq2.jpg" alt="Voice Synthesis">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/HTMLTasks/text_to_speak.html" class="project-link">
+                                <a href="Port/Menu/HTMLTasks/text_to_speak.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">Text-to-Speech Converter</h3>
-                        <p class="project-description">Modern text-to-speech application using Web Speech API with customizable voice options and controls.</p>
+                        <h3 class="project-title">VOICE SYNTHESIS ENGINE</h3>
+                        <p class="project-description">
+                            Advanced text-to-speech system with natural voice generation and audio controls.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">Web Speech API</span>
-                            <span class="tag">Accessibility</span>
-                            <span class="tag">Audio</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Communication Projects -->
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="images/p6.jpg" alt="Bulk Email Sender">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/send_bulk_email.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Bulk Email Management System</h3>
-                        <p class="project-description">Professional email automation tool for sending bulk emails with template support and delivery tracking.</p>
-                        <div class="project-tags">
-                            <span class="tag">Email API</span>
-                            <span class="tag">Automation</span>
-                            <span class="tag">Backend</span>
+                            <span class="tag">SPEECH API</span>
+                            <span class="tag">AUDIO</span>
+                            <span class="tag">SYNTHESIS</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="web">
                     <div class="project-image">
-                        <img src="images/wp.jpg" alt="WhatsApp Integration">
+                        <img src="Port/images/p1.jpg" alt="Camera System">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/whatsapp.html" class="project-link">
+                                <a href="Port/Menu/js_camera.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">WhatsApp Message Automation</h3>
-                        <p class="project-description">WhatsApp integration system for automated messaging and customer communication workflows.</p>
+                        <h3 class="project-title">VISUAL CAPTURE SYSTEM</h3>
+                        <p class="project-description">
+                            Professional camera interface with capture, filters, and real-time image processing.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">WhatsApp API</span>
-                            <span class="tag">Messaging</span>
-                            <span class="tag">Integration</span>
+                            <span class="tag">WEBRTC</span>
+                            <span class="tag">CAMERA API</span>
+                            <span class="tag">FILTERS</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="web">
                     <div class="project-image">
-                        <img src="images/h6.jpg" alt="SMS Service">
+                        <img src="Port/images/html2.jpg" alt="Live Stream">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/python_sms.html" class="project-link">
+                                <a href="Port/Menu/cam_live.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">SMS Notification System</h3>
-                        <p class="project-description">Python-based SMS service for sending notifications and alerts with delivery confirmation.</p>
+                        <h3 class="project-title">LIVE STREAM PROTOCOL</h3>
+                        <p class="project-description">
+                            Real-time video streaming system with live feed and recording capabilities.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">Python</span>
+                            <span class="tag">STREAMING</span>
+                            <span class="tag">WEBRTC</span>
+                            <span class="tag">RECORDING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Communication Systems -->
+                <div class="project-category-header">COMMUNICATION PROTOCOLS</div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="Port/images/p6.jpg" alt="Email System">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/send_bulk_email.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">BULK TRANSMISSION SYSTEM</h3>
+                        <p class="project-description">
+                            Advanced email automation system with template support and delivery tracking.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">EMAIL API</span>
+                            <span class="tag">AUTOMATION</span>
+                            <span class="tag">BULK PROCESSING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="Port/images/wp.jpg" alt="WhatsApp Integration">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/whatsapp.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">WHATSAPP INTEGRATION</h3>
+                        <p class="project-description">
+                            Secure messaging protocol with automated WhatsApp communication capabilities.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">MESSAGING</span>
+                            <span class="tag">API INTEGRATION</span>
+                            <span class="tag">AUTOMATION</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="Port/images/h6.jpg" alt="SMS System">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/python_sms.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">SMS TRANSMISSION PROTOCOL</h3>
+                        <p class="project-description">
+                            Python-powered SMS notification system with delivery confirmation and scheduling.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">PYTHON</span>
                             <span class="tag">SMS API</span>
-                            <span class="tag">Notifications</span>
+                            <span class="tag">NOTIFICATIONS</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Search & Utility Projects -->
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="images/p5.jpg" alt="Google Search Integration">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/google_search.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Custom Search Engine</h3>
-                        <p class="project-description">Custom search interface with Google Search API integration and advanced filtering capabilities.</p>
-                        <div class="project-tags">
-                            <span class="tag">Search API</span>
-                            <span class="tag">Web Scraping</span>
-                            <span class="tag">Data Processing</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- AI & Machine Learning -->
+                <div class="project-category-header">AI & MACHINE LEARNING MODULES</div>
 
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="images/p4.jpg" alt="Geolocation Service">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/geo_coordinates.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Geolocation Coordinate Finder</h3>
-                        <p class="project-description">Advanced geolocation service for finding coordinates with mapping integration and location services.</p>
-                        <div class="project-tags">
-                            <span class="tag">Geolocation API</span>
-                            <span class="tag">Maps</span>
-                            <span class="tag">Location Services</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- System Control Projects -->
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="images/p3.jpg" alt="Volume Control">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/adj_vol.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">System Volume Controller</h3>
-                        <p class="project-description">Web-based system volume control interface with real-time audio level monitoring and adjustment.</p>
-                        <div class="project-tags">
-                            <span class="tag">System Control</span>
-                            <span class="tag">Audio API</span>
-                            <span class="tag">Real-time</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Camera Projects -->
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="images/p1.jpg" alt="JS Camera">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/js_camera.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Advanced Camera Interface</h3>
-                        <p class="project-description">Professional camera application with capture, filters, and image processing capabilities using WebRTC.</p>
-                        <div class="project-tags">
-                            <span class="tag">WebRTC</span>
-                            <span class="tag">Camera API</span>
-                            <span class="tag">Image Processing</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="images/html2.jpg" alt="Live Camera">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/cam_live.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Live Camera Stream</h3>
-                        <p class="project-description">Real-time camera streaming application with live video feed and recording capabilities.</p>
-                        <div class="project-tags">
-                            <span class="tag">Live Streaming</span>
-                            <span class="tag">WebRTC</span>
-                            <span class="tag">Video Processing</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Command Line Projects -->
-                <div class="project-card" data-category="devops">
-                    <div class="project-image">
-                        <img src="images/linux.jpg" alt="Linux Terminal">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/linux.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Web-based Linux Terminal</h3>
-                        <p class="project-description">Full-featured Linux terminal interface accessible through web browser with command execution capabilities.</p>
-                        <div class="project-tags">
-                            <span class="tag">Linux</span>
-                            <span class="tag">Terminal</span>
-                            <span class="tag">System Admin</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="devops">
-                    <div class="project-image">
-                        <img src="images/linuxman.jpg" alt="SSH Controller">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/ssh_linux.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">SSH Remote Controller</h3>
-                        <p class="project-description">Secure SSH connection manager for remote server administration with command execution and monitoring.</p>
-                        <div class="project-tags">
-                            <span class="tag">SSH</span>
-                            <span class="tag">Remote Access</span>
-                            <span class="tag">Security</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="web">
-                    <div class="project-image">
-                        <img src="images/h6.jpg" alt="Command Suggestions">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/cmdsuggest.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Intelligent Command Suggestions</h3>
-                        <p class="project-description">AI-powered command suggestion system with autocomplete and intelligent recommendations for developers.</p>
-                        <div class="project-tags">
-                            <span class="tag">AI</span>
-                            <span class="tag">Autocomplete</span>
-                            <span class="tag">Developer Tools</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DevOps Projects -->
-                <div class="project-card" data-category="devops">
-                    <div class="project-image">
-                        <img src="images/docker.jpg" alt="Docker Management">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="Menu/docker.html" class="project-link">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Docker Management Dashboard</h3>
-                        <p class="project-description">Comprehensive Docker container management interface with monitoring, deployment, and orchestration features.</p>
-                        <div class="project-tags">
-                            <span class="tag">Docker</span>
-                            <span class="tag">DevOps</span>
-                            <span class="tag">Container Management</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AI/ML Projects -->
                 <div class="project-card" data-category="ai">
                     <div class="project-image">
-                        <img src="images/aws5.jpg" alt="AI Text Generator">
+                        <img src="Port/images/manas.png" alt="ManasMitra AI">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/gemini.html" class="project-link">
+                                <a href="https://www.linkedin.com/search/results/all/?heroEntityKey=urn%3Ali%3Aorganization%3A104112688&keywords=Manas%20Mitra&origin=ENTITY_SEARCH_HOME_HISTORY" class="project-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                <a href="https://www.ijrrr.com/papers17-2/issues17-2-18.htm" class="project-link" target="_blank">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">MANASMITRA AI PLATFORM</h3>
+                        <p class="project-description">
+                            Revolutionary AI-powered mental health platform with intelligent counselor matching 
+                            and 24/7 support capabilities using advanced neural networks.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">AI</span>
+                            <span class="tag">NEURAL NETWORKS</span>
+                            <span class="tag">HEALTHCARE</span>
+                            <span class="tag">RESEARCH</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai">
+                    <div class="project-image">
+                        <img src="Port/images/aws5.jpg" alt="AI Text Generator">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/gemini.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">AI Text Generation Platform</h3>
-                        <p class="project-description">Advanced AI-powered text generation system using machine learning models for content creation and automation.</p>
+                        <h3 class="project-title">AI TEXT SYNTHESIS ENGINE</h3>
+                        <p class="project-description">
+                            Advanced natural language processing system for intelligent text generation and content creation.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">Machine Learning</span>
                             <span class="tag">NLP</span>
+                            <span class="tag">TEXT GENERATION</span>
                             <span class="tag">AI</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- AWS Projects -->
-                <div class="project-card" data-category="aws">
+                <!-- DevOps & System Administration -->
+                <div class="project-category-header">DEVOPS & SYSTEM CONTROL</div>
+
+                <div class="project-card" data-category="devops">
                     <div class="project-image">
-                        <img src="images/aws1.jpg" alt="AWS Boto3">
+                        <img src="Port/images/docker.jpg" alt="Container Management">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/AWSfiles/boto3.html" class="project-link">
+                                <a href="Port/Menu/docker.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">AWS EC2 Instance Manager</h3>
-                        <p class="project-description">Automated AWS EC2 instance management system with launch, monitoring, and scaling capabilities using Boto3.</p>
+                        <h3 class="project-title">CONTAINER ORCHESTRATION HUB</h3>
+                        <p class="project-description">
+                            Comprehensive Docker management system with monitoring, deployment, and scaling automation.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">DOCKER</span>
+                            <span class="tag">ORCHESTRATION</span>
+                            <span class="tag">MONITORING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="devops">
+                    <div class="project-image">
+                        <img src="Port/images/linux.jpg" alt="Linux Terminal">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/linux.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">WEB-BASED TERMINAL INTERFACE</h3>
+                        <p class="project-description">
+                            Full-featured Linux terminal accessible through web browser with command execution.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">LINUX</span>
+                            <span class="tag">TERMINAL</span>
+                            <span class="tag">WEB INTERFACE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="devops">
+                    <div class="project-image">
+                        <img src="Port/images/linuxman.jpg" alt="SSH Controller">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/ssh_linux.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">SECURE REMOTE ACCESS PROTOCOL</h3>
+                        <p class="project-description">
+                            SSH-based remote server administration with secure command execution and monitoring.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">SSH</span>
+                            <span class="tag">REMOTE ACCESS</span>
+                            <span class="tag">SECURITY</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AWS Cloud Systems -->
+                <div class="project-category-header">CLOUD INFRASTRUCTURE SYSTEMS</div>
+
+                <div class="project-card" data-category="aws">
+                    <div class="project-image">
+                        <img src="Port/images/aws1.jpg" alt="AWS Management">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/AWSfiles/boto3.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AWS COMMAND CENTER</h3>
+                        <p class="project-description">
+                            Comprehensive AWS infrastructure management with automated scaling and monitoring.
+                        </p>
                         <div class="project-tags">
                             <span class="tag">AWS</span>
-                            <span class="tag">Boto3</span>
-                            <span class="tag">EC2</span>
+                            <span class="tag">BOTO3</span>
+                            <span class="tag">AUTOMATION</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="aws">
                     <div class="project-image">
-                        <img src="images/aws2.jpg" alt="IAM Management">
+                        <img src="Port/images/aws2.jpg" alt="IAM Management">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/AWSfiles/create_iam.html" class="project-link">
+                                <a href="Port/Menu/AWSfiles/create_iam.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">AWS IAM User Management</h3>
-                        <p class="project-description">Comprehensive IAM user and role management system with permissions handling and security controls.</p>
+                        <h3 class="project-title">IDENTITY ACCESS MATRIX</h3>
+                        <p class="project-description">
+                            Advanced IAM user and role management with security controls and permissions handling.
+                        </p>
                         <div class="project-tags">
                             <span class="tag">AWS IAM</span>
-                            <span class="tag">Security</span>
-                            <span class="tag">User Management</span>
+                            <span class="tag">SECURITY</span>
+                            <span class="tag">ACCESS CONTROL</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="aws">
                     <div class="project-image">
-                        <img src="images/aws3.jpg" alt="DynamoDB">
+                        <img src="Port/images/aws3.jpg" alt="DynamoDB">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/AWSfiles/dynamocgi.html" class="project-link">
+                                <a href="Port/Menu/AWSfiles/dynamocgi.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">DynamoDB Management Console</h3>
-                        <p class="project-description">Advanced DynamoDB database management interface with table operations, querying, and data visualization.</p>
+                        <h3 class="project-title">DYNAMODB CONTROL INTERFACE</h3>
+                        <p class="project-description">
+                            Advanced NoSQL database management with table operations and data visualization.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">DynamoDB</span>
-                            <span class="tag">NoSQL</span>
-                            <span class="tag">Database</span>
+                            <span class="tag">DYNAMODB</span>
+                            <span class="tag">NOSQL</span>
+                            <span class="tag">DATABASE</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="aws">
                     <div class="project-image">
-                        <img src="images/aws4.jpg" alt="EC2 Metrics">
+                        <img src="Port/images/aws4.jpg" alt="EC2 Metrics">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/AWSfiles/ec2metrics.html" class="project-link">
+                                <a href="Port/Menu/AWSfiles/ec2metrics.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">EC2 Performance Metrics</h3>
-                        <p class="project-description">Real-time EC2 instance monitoring dashboard with performance metrics, alerts, and optimization recommendations.</p>
+                        <h3 class="project-title">EC2 PERFORMANCE ANALYZER</h3>
+                        <p class="project-description">
+                            Real-time EC2 monitoring dashboard with performance metrics and optimization alerts.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">CloudWatch</span>
-                            <span class="tag">Monitoring</span>
-                            <span class="tag">Analytics</span>
+                            <span class="tag">CLOUDWATCH</span>
+                            <span class="tag">MONITORING</span>
+                            <span class="tag">ANALYTICS</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="aws">
                     <div class="project-image">
-                        <img src="images/aws5.jpg" alt="CloudWatch Logs">
+                        <img src="Port/images/aws5.jpg" alt="Log Analysis">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/AWSfiles/get_logs.html" class="project-link">
+                                <a href="Port/Menu/AWSfiles/get_logs.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">CloudWatch Log Analyzer</h3>
-                        <p class="project-description">Intelligent log analysis system for AWS CloudWatch with filtering, search, and anomaly detection.</p>
+                        <h3 class="project-title">LOG ANALYSIS ENGINE</h3>
+                        <p class="project-description">
+                            Intelligent CloudWatch log analysis with filtering, search, and anomaly detection.
+                        </p>
                         <div class="project-tags">
-                            <span class="tag">CloudWatch</span>
-                            <span class="tag">Log Analysis</span>
-                            <span class="tag">Monitoring</span>
+                            <span class="tag">LOG ANALYSIS</span>
+                            <span class="tag">CLOUDWATCH</span>
+                            <span class="tag">ANOMALY DETECTION</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="aws">
                     <div class="project-image">
-                        <img src="images/aws6.jpg" alt="S3 Bucket Manager">
+                        <img src="Port/images/aws6.jpg" alt="S3 Management">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/AWSfiles/s3_bucket.html" class="project-link">
+                                <a href="Port/Menu/AWSfiles/s3_bucket.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">S3 Bucket Management System</h3>
-                        <p class="project-description">Complete S3 storage management solution with file upload, organization, and access control features.</p>
+                        <h3 class="project-title">S3 STORAGE MATRIX</h3>
+                        <p class="project-description">
+                            Complete S3 storage management with file organization and access control systems.
+                        </p>
                         <div class="project-tags">
                             <span class="tag">AWS S3</span>
-                            <span class="tag">File Storage</span>
-                            <span class="tag">Cloud Storage</span>
+                            <span class="tag">STORAGE</span>
+                            <span class="tag">FILE MANAGEMENT</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card" data-category="aws">
                     <div class="project-image">
-                        <img src="images/aws7.jpg" alt="SNS Service">
+                        <img src="Port/images/aws7.jpg" alt="SNS Service">
                         <div class="project-overlay">
                             <div class="project-links">
-                                <a href="Menu/AWSfiles/sns.html" class="project-link">
+                                <a href="Port/Menu/AWSfiles/sns.html" class="project-link">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">SNS Notification Service</h3>
-                        <p class="project-description">AWS Simple Notification Service integration for managing topics, subscriptions, and message delivery.</p>
+                        <h3 class="project-title">NOTIFICATION BROADCAST SYSTEM</h3>
+                        <p class="project-description">
+                            AWS SNS integration for managing topics, subscriptions, and message delivery protocols.
+                        </p>
                         <div class="project-tags">
                             <span class="tag">AWS SNS</span>
-                            <span class="tag">Notifications</span>
-                            <span class="tag">Messaging</span>
+                            <span class="tag">NOTIFICATIONS</span>
+                            <span class="tag">MESSAGING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Utility Systems -->
+                <div class="project-category-header">UTILITY & SEARCH SYSTEMS</div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="Port/images/p5.jpg" alt="Search Engine">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/google_search.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">SEARCH INTELLIGENCE ENGINE</h3>
+                        <p class="project-description">
+                            Custom search interface with Google API integration and advanced filtering algorithms.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">SEARCH API</span>
+                            <span class="tag">WEB SCRAPING</span>
+                            <span class="tag">DATA PROCESSING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="Port/images/p4.jpg" alt="Geolocation">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/geo_coordinates.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">GEOLOCATION TRACKING SYSTEM</h3>
+                        <p class="project-description">
+                            Advanced coordinate detection system with mapping integration and location services.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">GEOLOCATION</span>
+                            <span class="tag">MAPPING</span>
+                            <span class="tag">GPS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="Port/images/p3.jpg" alt="Volume Control">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/adj_vol.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">AUDIO CONTROL INTERFACE</h3>
+                        <p class="project-description">
+                            Web-based system audio control with real-time level monitoring and adjustment.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">AUDIO API</span>
+                            <span class="tag">SYSTEM CONTROL</span>
+                            <span class="tag">REAL-TIME</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <img src="Port/images/h6.jpg" alt="Command Suggestions">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="Port/Menu/cmdsuggest.html" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">COMMAND INTELLIGENCE SYSTEM</h3>
+                        <p class="project-description">
+                            AI-powered command suggestion engine with autocomplete and intelligent recommendations.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">AI SUGGESTIONS</span>
+                            <span class="tag">AUTOCOMPLETE</span>
+                            <span class="tag">DEVELOPER TOOLS</span>
                         </div>
                     </div>
                 </div>
@@ -602,20 +914,90 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-text">
-                    <p>&copy; 2024 Yash Agarwal. All rights reserved.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#about">About</a>
-                    <a href="index.html#contact">Contact</a>
-                </div>
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>&copy; 2024 YASH AGARWAL - AI SYSTEMS ENGINEER</p>
+                <p>POWERED BY JARVIS TECHNOLOGY</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/yash-agarwal-632418259/" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/yashagarwal16" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.instagram.com/yash_agr2005?igsh=MWZhZGltZzZxMjhnZA==" class="social-link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            
+            <div class="copyright">
+                <p>ALL RIGHTS RESERVED | JARVIS PROTOCOL ACTIVE</p>
             </div>
         </div>
     </footer>
 
-    <script src="js/projects.js"></script>
+    <!-- Voice Recognition Indicator -->
+    <div class="voice-indicator" title="Voice Commands">
+        <i class="fas fa-microphone"></i>
+    </div>
+
+    <!-- AI Assistant Panel -->
+    <div class="ai-assistant">
+        <div class="ai-header">
+            <div class="ai-avatar">J</div>
+            <div class="ai-status">
+                <div class="ai-name">JARVIS</div>
+                <div class="ai-state">ONLINE</div>
+            </div>
+        </div>
+        <div class="ai-message">
+            Project database loaded. Ready for exploration.
+        </div>
+    </div>
+
+    <script src="js/jarvis.js"></script>
+    <script>
+        // Initialize project filtering for this page
+        document.addEventListener('DOMContentLoaded', () => {
+            jarvisPortfolio.initProjectFiltering();
+            
+            // Add search functionality
+            const searchInput = document.getElementById('projectSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    const projectCards = document.querySelectorAll('.project-card');
+                    
+                    projectCards.forEach(card => {
+                        const title = card.querySelector('.project-title').textContent.toLowerCase();
+                        const description = card.querySelector('.project-description').textContent.toLowerCase();
+                        const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                        
+                        const matches = title.includes(query) || 
+                                      description.includes(query) || 
+                                      tags.some(tag => tag.includes(query));
+                        
+                        if (matches || query === '') {
+                            card.style.display = 'block';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                    
+                    if (query) {
+                        jarvisPortfolio.showNotification('JARVIS', `Searching database for: ${query}`);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
