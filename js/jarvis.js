@@ -1,4 +1,6 @@
 // JARVIS Portfolio - Advanced AI Interface
+
+
 class JARVISPortfolio {
     constructor() {
         this.isInitialized = false;
@@ -10,7 +12,7 @@ class JARVISPortfolio {
     }
 
     async init() {
-        console.log('🤖 Initializing JARVIS Portfolio System...');
+        console.log('🤖 Initializing Yash Agarwal Portfolio System...');
         
         // Wait for DOM
         if (document.readyState === 'loading') {
@@ -39,7 +41,7 @@ class JARVISPortfolio {
             this.completeLoading();
         }, 3000);
         
-        console.log('✅ JARVIS Portfolio System Online');
+        console.log('✅ Yash Portfolio System Online');
     }
 
     initLoadingSequence() {
@@ -61,7 +63,7 @@ class JARVISPortfolio {
         const stepInterval = setInterval(() => {
             if (currentStep < loadingSteps.length) {
                 loadingText.textContent = loadingSteps[currentStep];
-                this.showNotification('JARVIS', loadingSteps[currentStep]);
+                this.showNotification('YASH', loadingSteps[currentStep]);
                 currentStep++;
             } else {
                 clearInterval(stepInterval);
@@ -78,7 +80,7 @@ class JARVISPortfolio {
         
         // Show welcome message
         setTimeout(() => {
-            this.showNotification('JARVIS', 'Welcome back, Sir. All systems operational.');
+            this.showNotification('YASH', 'Welcome back, Sir. All systems operational.');
             this.initAIGreeting();
         }, 1000);
         
@@ -173,7 +175,7 @@ class JARVISPortfolio {
                     
                     // Smooth scroll with JARVIS feedback
                     const sectionName = targetId.replace('#', '');
-                    this.showNotification('JARVIS', `Navigating to ${sectionName} section...`);
+                    this.showNotification('YASH', `Navigating to ${sectionName} section...`);
                     
                     targetSection.scrollIntoView({
                         behavior: 'smooth',
@@ -358,7 +360,7 @@ class JARVISPortfolio {
         this.recognition.onstart = () => {
             this.voiceEnabled = true;
             voiceIndicator?.classList.add('active');
-            this.showNotification('JARVIS', 'Listening...');
+            this.showNotification('Yash', 'Listening...');
         };
         
         this.recognition.onend = () => {
@@ -394,9 +396,9 @@ class JARVISPortfolio {
         } else if (command.includes('contact')) {
             this.navigateToSection('contact');
         } else if (command.includes('hello') || command.includes('hi')) {
-            this.showNotification('JARVIS', 'Hello! How can I assist you today?');
+            this.showNotification('Yash', 'Hello! How can I assist you today?');
         } else {
-            this.showNotification('JARVIS', 'Command not recognized. Try saying "home", "about", "skills", "projects", or "contact".');
+            this.showNotification('Yash', 'Command not recognized. Try saying "home", "about", "skills", "projects", or "contact".');
         }
     }
 
@@ -404,7 +406,7 @@ class JARVISPortfolio {
         const section = document.getElementById(sectionId);
         if (section) {
             section.scrollIntoView({ behavior: 'smooth' });
-            this.showNotification('JARVIS', `Navigating to ${sectionId} section.`);
+            this.showNotification('Yash', `Navigating to ${sectionId} section.`);
         }
     }
 
@@ -625,7 +627,7 @@ class JARVISPortfolio {
         
         // Create notification element
         const notification = document.createElement('div');
-        notification.className = 'jarvis-notification';
+        notification.className = 'YASH-notification';
         notification.innerHTML = `
             <div class="notification-header">
                 <i class="fas fa-robot notification-icon"></i>
@@ -657,13 +659,13 @@ class JARVISPortfolio {
             'All systems are functioning within normal parameters.',
             'How may I assist you today?',
             'Portfolio systems are online and ready.',
-            'Welcome to the JARVIS interface.'
+            'Welcome to the YASH interface.'
         ];
         
         const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
         
         setTimeout(() => {
-            this.showNotification('JARVIS', randomGreeting, 4000);
+            this.showNotification('YASH', randomGreeting, 4000);
         }, 2000);
     }
 
@@ -709,7 +711,7 @@ class JARVISPortfolio {
                 btn.classList.add('active');
                 
                 // Filter projects with JARVIS feedback
-                this.showNotification('JARVIS', `Filtering projects: ${filter}`);
+                this.showNotification('YASH', `Filtering projects: ${filter}`);
                 
                 projectCards.forEach(card => {
                     const category = card.getAttribute('data-category');
@@ -748,20 +750,20 @@ class JARVISPortfolio {
             submitBtn.innerHTML = '<i class="fas fa-cog fa-spin"></i> <span>Processing...</span>';
             submitBtn.disabled = true;
             
-            this.showNotification('JARVIS', 'Processing your message...');
+            this.showNotification('YASH', 'Processing your message...');
             
             try {
                 // Simulate form submission
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 
-                this.showNotification('JARVIS', 'Message transmitted successfully. Awaiting response.');
+                this.showNotification('YASH', 'Message transmitted successfully. Awaiting response.');
                 form.reset();
                 
                 // Add success effect
                 this.addSuccessEffect(form);
                 
             } catch (error) {
-                this.showNotification('JARVIS', 'Transmission failed. Please retry.');
+                this.showNotification('YASH', 'Transmission failed. Please retry.');
             } finally {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -803,7 +805,7 @@ class JARVISPortfolio {
         
         diagnostics.forEach((message, index) => {
             setTimeout(() => {
-                this.showNotification('JARVIS', message);
+                this.showNotification('YASH', message);
             }, index * 1000);
         });
     }
@@ -828,14 +830,14 @@ class JARVISPortfolio {
     }
 
     activateEasterEgg() {
-        this.showNotification('JARVIS', 'Easter egg activated! Initiating special mode...');
+        this.showNotification('YASH', 'Easter egg activated! Initiating special mode...');
         
         // Add special effects
         document.body.style.filter = 'hue-rotate(180deg)';
         
         setTimeout(() => {
             document.body.style.filter = 'none';
-            this.showNotification('JARVIS', 'Special mode deactivated. Returning to normal operations.');
+            this.showNotification('YASH', 'Special mode deactivated. Returning to normal operations.');
         }, 5000);
     }
 
@@ -862,7 +864,7 @@ class JARVISPortfolio {
             this.audioContext.close();
         }
         
-        console.log('🤖 JARVIS Portfolio System Shutdown');
+        console.log('🤖 YASH Portfolio System Shutdown');
     }
 }
 
@@ -888,8 +890,8 @@ document.head.appendChild(rippleStyles);
 
 // Global error handling
 window.addEventListener('error', (e) => {
-    console.error('JARVIS System Error:', e.error);
-    jarvisPortfolio.showNotification('JARVIS', 'System error detected. Running diagnostics...');
+    console.error('YASH System Error:', e.error);
+    jarvisPortfolio.showNotification('YASH', 'System error detected. Running diagnostics...');
 });
 
 // Cleanup on page unload
