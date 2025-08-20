@@ -52,6 +52,15 @@ app.use(session({
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 
+// Authentication middleware for portfolio pages
+const requireAuth = (req, res, next) => {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect('/signin.html');
+    }
+};
+
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -149,7 +158,7 @@ const isAuthenticated = (req, res, next) => {
 
 // Routes
 
-// Serve authentication pages
+// Root route - redirect based on auth status
 app.get('/', (req, res) => {
     if (req.session.user) {
         res.redirect('/index.html');
@@ -158,24 +167,54 @@ app.get('/', (req, res) => {
     }
 });
 
+// Serve authentication pages (only when not authenticated)
 app.get('/signin.html', (req, res) => {
+    if (req.session.user) {
+        return res.redirect('/index.html');
+    }
     res.sendFile(path.join(__dirname, 'auth', 'signin.html'));
 });
 
 app.get('/signup.html', (req, res) => {
+    if (req.session.user) {
+        return res.redirect('/index.html');
+    }
     res.sendFile(path.join(__dirname, 'auth', 'signup.html'));
 });
 
-// Protect portfolio pages
-app.get('/index.html', isAuthenticated, (req, res) => {
+// Protect all portfolio pages
+app.get('/index.html', requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/projec.html', isAuthenticated, (req, res) => {
+app.get('/projec.html', requireAuth, (req, res) => {
     res.sendFile(path.join(__dirname, 'projec.html'));
 });
 
+// Protect all Port directory files
+app.use('/Port', requireAuth, express.static(path.join(__dirname, 'Port')));
+
+// Protect CSS and JS files for portfolio
+app.get('/css/*', requireAuth, (req, res, next) => {
+    if (req.path.includes('jarvis.css') || req.path.includes('style.css') || req.path.includes('projects.css')) {
+        next();
+    } else {
+        res.status(404).send('Not Found');
+    }
+});
+
+app.get('/js/*', requireAuth, (req, res, next) => {
+    if (req.path.includes('jarvis.js') || req.path.includes('main.js') || req.path.includes('projects.js')) {
+        next();
+    } else {
+        res.status(404).send('Not Found');
+    }
+});
+
 // API Routes
+
+// Auth routes
+app.use('/api/auth', require('./routes/auth'));
 
 // Register
 app.post('/api/auth/register', async (req, res) => {

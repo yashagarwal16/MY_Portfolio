@@ -1013,6 +1013,10 @@ body {
   background: linear-gradient(135deg, rgba(255, 165, 0, 0.2), rgba(0, 212, 255, 0.2));
 }
 
+.project-placeholder.web-project {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+}
+
 .project-image img {
   width: 100%;
   height: 100%;
@@ -1023,6 +1027,38 @@ body {
 
 .project-card:hover .project-image img {
   transform: scale(1.1);
+}
+
+/* Enhanced project placeholders */
+.project-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  color: var(--jarvis-blue);
+  text-shadow: var(--glow-primary);
+  transition: all 0.3s ease;
+}
+
+.project-placeholder i {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-placeholder span {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.project-card:hover .project-placeholder {
+  transform: scale(1.1);
+  color: var(--jarvis-cyan);
 }
 
 .project-overlay {

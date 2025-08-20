@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -70,11 +71,9 @@ userSchema.virtual('isLocked').get(function() {
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
-    // Only hash the password if it has been modified (or is new)
     if (!this.isModified('password')) return next();
     
     try {
-        // Hash password with cost of 12
         const salt = await bcrypt.genSalt(12);
         this.password = await bcrypt.hash(this.password, salt);
         next();
@@ -91,20 +90,15 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
     
     const isMatch = await bcrypt.compare(candidatePassword, this.password);
     
-    // If password doesn't match, increment login attempts
     if (!isMatch) {
         this.loginAttempts += 1;
-        
-        // Lock account after 5 failed attempts for 2 hours
         if (this.loginAttempts >= 5) {
             this.lockUntil = Date.now() + 2 * 60 * 60 * 1000; // 2 hours
         }
-        
         await this.save();
         return false;
     }
     
-    // Reset login attempts on successful login
     if (this.loginAttempts > 0) {
         this.loginAttempts = 0;
         this.lockUntil = undefined;
@@ -129,33 +123,24 @@ userSchema.methods.generateAuthToken = function() {
 // Static method to find user by credentials
 userSchema.statics.findByCredentials = async function(email, password) {
     const user = await this.findOne({ email });
-    
-    if (!user) {
-        throw new Error('Invalid login credentials');
-    }
-    
-    if (user.isLocked) {
-        throw new Error('Account is temporarily locked due to too many failed login attempts');
-    }
+    if (!user) throw new Error('Invalid login credentials');
+    if (user.isLocked) throw new Error('Account is temporarily locked due to too many failed login attempts');
     
     const isMatch = await user.comparePassword(password);
+    if (!isMatch) throw new Error('Invalid login credentials');
     
-    if (!isMatch) {
-        throw new Error('Invalid login credentials');
-    }
-    
-    // Update last login
     user.lastLogin = new Date();
     await user.save();
     
     return user;
 };
 
-// Index for performance
+// Indexes for performance
 userSchema.index({ email: 1 });
 userSchema.index({ username: 1 });
 userSchema.index({ createdAt: -1 });
 
-const User = mongoose.model('User', userSchema);
+// ✅ Prevent OverwriteModelError
+const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 module.exports = User;

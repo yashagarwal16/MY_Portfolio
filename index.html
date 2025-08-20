@@ -829,5 +829,60 @@
 
     <!-- Scripts -->
     <script src="js/jarvis.js"></script>
+    <script>
+        // Check authentication status on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/auth/verify');
+                if (!response.ok) {
+                    window.location.href = '/signin.html';
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = '/signin.html';
+            }
+        });
+        
+        // Add logout functionality
+        function logout() {
+            fetch('/api/auth/logout', { method: 'POST' })
+                .then(() => {
+                    window.location.href = '/signin.html';
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    window.location.href = '/signin.html';
+                });
+        }
+        
+        // Add logout button to navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const navMenu = document.querySelector('.nav-menu');
+            if (navMenu) {
+                const logoutBtn = document.createElement('button');
+                logoutBtn.className = 'nav-link logout-btn';
+                logoutBtn.innerHTML = '<span>LOGOUT</span>';
+                logoutBtn.onclick = logout;
+                logoutBtn.style.cssText = `
+                    background: none;
+                    border: 1px solid var(--jarvis-red);
+                    color: var(--jarvis-red);
+                    padding: 0.5rem 1rem;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                `;
+                logoutBtn.onmouseover = () => {
+                    logoutBtn.style.background = 'var(--jarvis-red)';
+                    logoutBtn.style.color = 'white';
+                };
+                logoutBtn.onmouseout = () => {
+                    logoutBtn.style.background = 'none';
+                    logoutBtn.style.color = 'var(--jarvis-red)';
+                };
+                navMenu.appendChild(logoutBtn);
+            }
+        });
+    </script>
 </body>
 </html>
