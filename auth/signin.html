@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - JARVIS Portfolio Access</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --jarvis-blue: #00d4ff;
+            --jarvis-cyan: #00ffff;
+            --jarvis-gold: #ffd700;
+            --jarvis-red: #ff4444;
+            --jarvis-green: #00ff88;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #00d4ff;
+            --text-muted: #888888;
+            --glow-primary: 0 0 20px var(--jarvis-blue);
+            --glow-secondary: 0 0 30px var(--jarvis-cyan);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Matrix Background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        /* Holographic Grid */
+        .holo-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: grid-pulse 3s ease-in-out infinite alternate;
+        }
+
+        .auth-container {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--jarvis-blue);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--jarvis-blue), var(--jarvis-cyan), var(--jarvis-blue));
+            animation: top-scan 2s linear infinite;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--jarvis-blue), var(--jarvis-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: white;
+            animation: logo-pulse 2s ease-in-out infinite;
+        }
+
+        .auth-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--jarvis-blue);
+            text-shadow: var(--glow-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: var(--jarvis-cyan);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--jarvis-blue);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--jarvis-cyan);
+            box-shadow: var(--glow-secondary);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--jarvis-blue);
+            font-size: 1.1rem;
+            margin-top: 1.2rem;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--jarvis-blue), var(--jarvis-cyan));
+            border: none;
+            border-radius: 10px;
+            color: var(--bg-primary);
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .auth-btn:hover::before {
+            left: 100%;
+        }
+
+        .auth-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .auth-link a {
+            color: var(--jarvis-cyan);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .auth-link a:hover {
+            color: var(--jarvis-blue);
+            text-shadow: var(--glow-primary);
+        }
+
+        .error-message {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid var(--jarvis-red);
+            color: var(--jarvis-red);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--jarvis-green);
+            color: var(--jarvis-green);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--bg-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes grid-pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes top-scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% { box-shadow: 0 0 20px var(--jarvis-blue); }
+            50% { box-shadow: 0 0 40px var(--jarvis-blue), 0 0 60px var(--jarvis-cyan); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-container {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .auth-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Background -->
+    <div class="matrix-bg"></div>
+    
+    <!-- Holographic Grid -->
+    <div class="holo-grid"></div>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <div class="auth-logo">Y.A</div>
+            <h1 class="auth-title">ACCESS CONTROL</h1>
+            <p class="auth-subtitle">Enter credentials to access portfolio system</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form id="signinForm">
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-input" name="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-input" name="password" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="auth-btn" id="signinBtn">
+                <span class="loading-spinner" id="loadingSpinner"></span>
+                <span id="btnText">Initialize Access</span>
+            </button>
+        </form>
+
+        <div class="auth-link">
+            <p>Need access credentials? <a href="/signup.html">Register New User</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Matrix background effect
+        function initMatrix() {
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.zIndex = '-1';
+            canvas.style.opacity = '0.1';
+            document.querySelector('.matrix-bg').appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            const columns = Math.floor(canvas.width / 20);
+            const drops = Array(columns).fill(1);
+
+            function drawMatrix() {
+                ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00d4ff';
+                ctx.font = '15px Orbitron';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                    ctx.fillText(text, i * 20, drops[i] * 20);
+
+                    if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(drawMatrix, 50);
+        }
+
+        // Form handling
+        document.addEventListener('DOMContentLoaded', () => {
+            initMatrix();
+            
+            const form = document.getElementById('signinForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const signinBtn = document.getElementById('signinBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const btnText = document.getElementById('btnText');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Hide previous messages
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                
+                // Show loading state
+                signinBtn.disabled = true;
+                loadingSpinner.style.display = 'inline-block';
+                btnText.textContent = 'Authenticating...';
+
+                const formData = new FormData(form);
+                const data = {
+                    email: formData.get('email'),
+                    password: formData.get('password')
+                };
+
+                try {
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        successMessage.textContent = 'Access granted! Redirecting to portfolio...';
+                        successMessage.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            window.location.href = '/index.html';
+                        }, 1500);
+                    } else {
+                        errorMessage.textContent = result.message || 'Authentication failed';
+                        errorMessage.style.display = 'block';
+                    }
+                } catch (error) {
+                    errorMessage.textContent = 'Network error. Please try again.';
+                    errorMessage.style.display = 'block';
+                } finally {
+                    // Reset button state
+                    signinBtn.disabled = false;
+                    loadingSpinner.style.display = 'none';
+                    btnText.textContent = 'Initialize Access';
+                }
+            });
+
+            // Add enter key support
+            document.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !signinBtn.disabled) {
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
