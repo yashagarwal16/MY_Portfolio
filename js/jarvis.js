@@ -35,6 +35,7 @@ class JARVISPortfolio {
         this.initHUDElements();
         this.initInteractiveElements();
         this.initNotificationSystem();
+        this.initFormHandler();
         
         // Start loading sequence
         setTimeout(() => {
@@ -764,7 +765,7 @@ class JARVISPortfolio {
                     message: formData.get('message')
                 };
                 
-                // Submit to backend
+                // Submit to backend (no auth required)
                 const response = await fetch('/api/contact/submit', {
                     method: 'POST',
                     headers: {

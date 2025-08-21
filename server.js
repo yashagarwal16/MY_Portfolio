@@ -163,7 +163,7 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
 
 
 // Authentication middleware
-const authenticateToken = (req, res, next) => {
+function authenticateToken(req, res, next) {
     const token = req.session.token || req.headers['authorization']?.split(' ')[1];
     
     if (!token) {
@@ -184,16 +184,16 @@ const authenticateToken = (req, res, next) => {
             redirect: '/signin.html'
         });
     }
-};
+}
 
 // Check if user is authenticated (for serving pages)
-const requireAuth = (req, res, next) => {
+function requireAuth(req, res, next) {
     if (req.session.user) {
         next();
     } else {
         res.redirect('/signin.html');
     }
-};
+}
 
 // Serve static files (public access)
 app.use('/css', express.static(path.join(__dirname, 'css')));
@@ -239,7 +239,7 @@ app.get('/projec.html', requireAuth, (req, res) => {
 app.use('/Port', requireAuth, express.static(path.join(__dirname, 'Port')));
 
 // Contact form submission
-app.post('/api/contact/submit', authenticateToken, async (req, res) => {
+app.post('/api/contact/submit', async (req, res) => {
     try {
         const { name, email, subject, message } = req.body;
         
