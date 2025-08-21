@@ -238,49 +238,9 @@ app.get('/projec.html', requireAuth, (req, res) => {
 // Protect Port directory
 app.use('/Port', requireAuth, express.static(path.join(__dirname, 'Port')));
 
-// Contact form submission
-app.post('/api/contact/submit', async (req, res) => {
-    try {
-        const { name, email, subject, message } = req.body;
-        
-        // Validation
-        if (!name || !email || !subject || !message) {
-            return res.status(400).json({
-                message: 'All fields are required'
-            });
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            return res.status(400).json({
-                message: 'Please enter a valid email address'
-            });
-        }
-        
-        // For now, just log the message (you can add email/WhatsApp later)
-        console.log('📧 New contact form submission:');
-        console.log(`Name: ${name}`);
-        console.log(`Email: ${email}`);
-        console.log(`Subject: ${subject}`);
-        console.log(`Message: ${message}`);
-        console.log(`Timestamp: ${new Date().toLocaleString()}`);
-        
-        // Simulate successful submission
-        res.json({
-            message: 'Message transmitted successfully! I will get back to you soon.',
-            status: 'success',
-            timestamp: new Date().toISOString()
-        });
-        
-    } catch (error) {
-        console.error('Contact form error:', error);
-        res.status(500).json({
-            message: 'Transmission failed. Please try again.',
-            status: 'error'
-        });
-    }
-});
+// Contact routes
+const contactRoutes = require('./routes/contact');
+app.use('/api/contact', contactRoutes);
 
 // Register
 app.post('/api/auth/register', async (req, res) => {
