@@ -5,11 +5,12 @@ services:
     env: node
     plan: free
     branch: main
+    autoDeploy: true
     buildCommand: npm install
     startCommand: npm start
     envVars:
       - key: PORT
-        value: 10000
+        fromEnvVar: PORT        # Let Render handle the port
       - key: MONGODB_URI
         fromSecret: MONGODB_URI
       - key: SESSION_SECRET
