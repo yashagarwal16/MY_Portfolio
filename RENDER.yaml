@@ -1,0 +1,32 @@
+# .render.yaml
+services:
+  - type: web
+    name: yash-portfolio
+    env: node
+    plan: free
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        fromSecret: MONGODB_URI
+      - key: SESSION_SECRET
+        fromSecret: SESSION_SECRET
+      - key: JWT_SECRET
+        fromSecret: JWT_SECRET
+      - key: EMAIL_USER
+        fromSecret: EMAIL_USER
+      - key: EMAIL_PASS
+        fromSecret: EMAIL_PASS
+      - key: CONTACT_EMAIL
+        fromSecret: CONTACT_EMAIL
+      - key: TWILIO_ACCOUNT_SID
+        fromSecret: TWILIO_ACCOUNT_SID
+      - key: TWILIO_AUTH_TOKEN
+        fromSecret: TWILIO_AUTH_TOKEN
+      - key: TWILIO_WHATSAPP_NUMBER
+        fromSecret: TWILIO_WHATSAPP_NUMBER
+      - key: WHATSAPP_NUMBER
+        fromSecret: WHATSAPP_NUMBER
