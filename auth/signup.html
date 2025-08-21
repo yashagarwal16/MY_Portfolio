@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - JARVIS Portfolio Registration</title>
+    <title>Sign Up - Portfolio Registration</title>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -39,11 +39,10 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
-            overflow: hidden;
+            padding: 2rem 1rem;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Matrix Background */
@@ -79,10 +78,12 @@
             padding: 3rem;
             width: 100%;
             max-width: 500px;
+            margin: 0 auto;
             position: relative;
             overflow: hidden;
             backdrop-filter: blur(20px);
             box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+            min-height: fit-content;
         }
 
         .auth-container::before {
@@ -207,9 +208,17 @@
             border-radius: 2px;
         }
 
-        .strength-weak { background: var(--jarvis-red); }
-        .strength-medium { background: var(--jarvis-gold); }
-        .strength-strong { background: var(--jarvis-green); }
+        .strength-weak { 
+            background: var(--jarvis-red); 
+        }
+        
+        .strength-medium { 
+            background: var(--jarvis-gold); 
+        }
+        
+        .strength-strong { 
+            background: var(--jarvis-green); 
+        }
 
         .auth-btn {
             width: 100%;
@@ -310,38 +319,89 @@
 
         /* Animations */
         @keyframes grid-pulse {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.3; }
+            0%, 100% { 
+                opacity: 0.1; 
+            }
+            50% { 
+                opacity: 0.3; 
+            }
         }
 
         @keyframes top-scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% { 
+                transform: translateX(-100%); 
+            }
+            100% { 
+                transform: translateX(100%); 
+            }
         }
 
         @keyframes logo-pulse {
-            0%, 100% { box-shadow: 0 0 20px var(--jarvis-blue); }
-            50% { box-shadow: 0 0 40px var(--jarvis-blue), 0 0 60px var(--jarvis-cyan); }
+            0%, 100% { 
+                box-shadow: 0 0 20px var(--jarvis-blue); 
+            }
+            50% { 
+                box-shadow: 0 0 40px var(--jarvis-blue), 0 0 60px var(--jarvis-cyan); 
+            }
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { 
+                transform: rotate(0deg); 
+            }
+            100% { 
+                transform: rotate(360deg); 
+            }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .auth-container {
-                margin: 1rem;
-                padding: 2rem;
+            body {
+                padding: 1rem;
             }
-            
+
+            .auth-container {
+                padding: 2rem 1.5rem;
+                margin: 1rem auto;
+            }
+    
             .auth-title {
                 font-size: 1.5rem;
             }
-            
+    
             .form-row {
                 grid-template-columns: 1fr;
+            }
+
+            .auth-logo {
+                width: 60px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .auth-container {
+                padding: 1.5rem 1rem;
+                border-radius: 15px;
+            }
+
+            .auth-title {
+                font-size: 1.3rem;
+            }
+
+            .form-input {
+                padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+                font-size: 0.9rem;
+            }
+
+            .input-icon {
+                left: 0.8rem;
+                font-size: 1rem;
             }
         }
     </style>
