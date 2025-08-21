@@ -744,28 +744,72 @@ class JARVISPortfolio {
             e.preventDefault();
             
             const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             const spinner = document.getElementById('contactSpinner');
             const statusDiv = document.getElementById('formStatus');
             const formData = new FormData(form);
             
             // Show processing state
-            submitBtn.innerHTML = '<i class="fas fa-cog fa-spin"></i> <span>Processing...</span>';
+            submitBtn.innerHTML = '<span class="loading-spinner" style="display: inline-block;"></span> <span>TRANSMITTING...</span>';
             submitBtn.disabled = true;
             
             this.showNotification('YASH', 'Processing your message...');
             
             try {
-                // Simulate form submission
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                // Prepare form data
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    subject: formData.get('subject'),
+                    message: formData.get('message')
+                };
                 
-                this.showNotification('YASH', 'Message transmitted successfully. Awaiting response.');
-                form.reset();
+                // Submit to backend
+                const response = await fetch('/api/contact/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
                 
-                // Add success effect
-                this.addSuccessEffect(form);
+                const result = await response.json();
+                
+                if (response.ok) {
+                    this.showNotification('YASH', result.message || 'Message transmitted successfully!');
+                    form.reset();
+                    
+                    // Show success status
+                    if (statusDiv) {
+                        statusDiv.className = 'form-status success';
+                        statusDiv.textContent = result.message;
+                        statusDiv.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            statusDiv.style.display = 'none';
+                        }, 5000);
+                    }
+                    
+                    // Add success effect
+                    this.addSuccessEffect(form);
+                } else {
+                    throw new Error(result.message || 'Transmission failed');
+                }
                 
             } catch (error) {
-                this.showNotification('YASH', 'Transmission failed. Please retry.');
+                console.error('Contact form error:', error);
+                this.showNotification('YASH', error.message || 'Transmission failed. Please retry.');
+                
+                // Show error status
+                if (statusDiv) {
+                    statusDiv.className = 'form-status error';
+                    statusDiv.textContent = error.message || 'Transmission failed. Please try again.';
+                    statusDiv.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        statusDiv.style.display = 'none';
+                    }, 5000);
+                }
             } finally {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
