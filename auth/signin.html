@@ -39,11 +39,13 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
+            position: relative;
+            padding: 2rem 1rem;
+            overflow-x: hidden;
+            overflow-y: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
         }
 
         /* Matrix Background */
@@ -83,6 +85,7 @@
             overflow: hidden;
             backdrop-filter: blur(20px);
             box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+            min-height: fit-content;
         }
 
         .auth-container::before {
@@ -279,34 +282,105 @@
 
         /* Animations */
         @keyframes grid-pulse {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.3; }
+            0%, 100% { 
+                opacity: 0.1; 
+            }
+            50% { 
+                opacity: 0.3; 
+            }
         }
 
         @keyframes top-scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% { 
+                transform: translateX(-100%); 
+            }
+            100% { 
+                transform: translateX(100%); 
+            }
         }
 
         @keyframes logo-pulse {
-            0%, 100% { box-shadow: 0 0 20px var(--jarvis-blue); }
-            50% { box-shadow: 0 0 40px var(--jarvis-blue), 0 0 60px var(--jarvis-cyan); }
+            0%, 100% { 
+                box-shadow: 0 0 20px var(--jarvis-blue); 
+            }
+            50% { 
+                box-shadow: 0 0 40px var(--jarvis-blue), 0 0 60px var(--jarvis-cyan); 
+            }
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { 
+                transform: rotate(0deg); 
+            }
+            100% { 
+                transform: rotate(360deg); 
+            }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
             .auth-container {
-                margin: 1rem;
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+                margin: 1rem 0;
             }
             
             .auth-title {
                 font-size: 1.5rem;
+            }
+
+            .auth-logo {
+                width: 60px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
+
+            .auth-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .auth-container {
+                padding: 1.5rem 1rem;
+                border-radius: 15px;
+            }
+
+            .auth-title {
+                font-size: 1.3rem;
+            }
+
+            .form-input {
+                padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+                font-size: 0.9rem;
+            }
+
+            .input-icon {
+                left: 0.8rem;
+                font-size: 1rem;
+            }
+
+            .auth-btn {
+                padding: 0.9rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            body {
+                align-items: flex-start;
+                padding-top: 1rem;
+            }
+
+            .auth-container {
+                margin: 1rem auto;
             }
         }
     </style>
@@ -465,6 +539,32 @@
                 if (e.key === 'Enter' && !signinBtn.disabled) {
                     form.dispatchEvent(new Event('submit'));
                 }
+            });
+
+            // Auto-focus first input field
+            const emailInput = document.querySelector('input[name="email"]');
+            if (emailInput) {
+                emailInput.focus();
+            }
+
+            // Add visual feedback for form validation
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('blur', () => {
+                    if (input.validity.valid && input.value) {
+                        input.style.borderColor = 'var(--jarvis-green)';
+                    } else if (!input.validity.valid && input.value) {
+                        input.style.borderColor = 'var(--jarvis-red)';
+                    } else {
+                        input.style.borderColor = 'var(--jarvis-blue)';
+                    }
+                });
+
+                input.addEventListener('input', () => {
+                    if (input.style.borderColor === 'rgb(255, 68, 68)') {
+                        input.style.borderColor = 'var(--jarvis-blue)';
+                    }
+                });
             });
         });
     </script>
