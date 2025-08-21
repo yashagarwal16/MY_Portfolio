@@ -10,6 +10,9 @@ const rateLimit = require('express-rate-limit');
 const path = require('path');
 require('dotenv').config();
 
+// Import routes
+const contactRoutes = require('./routes/contact');
+
 const app = express();
 
 // Security middleware
@@ -238,6 +241,7 @@ app.get('/projec.html', requireAuth, (req, res) => {
 app.use('/Port', requireAuth, express.static(path.join(__dirname, 'Port')));
 
 // API Routes
+app.use('/api/contact', contactRoutes);
 
 // Register
 app.post('/api/auth/register', async (req, res) => {

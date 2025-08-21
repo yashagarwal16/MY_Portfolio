@@ -1370,6 +1370,62 @@ body {
   margin-top: 2rem;
 }
 
+/* Contact Form Status Messages */
+.form-status {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  font-family: 'Orbitron', monospace;
+  animation: status-appear 0.3s ease-out;
+}
+
+.form-status.success {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid var(--jarvis-green);
+  color: var(--jarvis-green);
+}
+
+.form-status.error {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid var(--jarvis-red);
+  color: var(--jarvis-red);
+}
+
+.form-status.processing {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid var(--jarvis-blue);
+  color: var(--jarvis-blue);
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes status-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Terminal */
 .terminal {
   background: rgba(0, 0, 0, 0.8);
