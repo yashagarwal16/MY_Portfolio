@@ -744,7 +744,9 @@ class JARVISPortfolio {
             e.preventDefault();
             
             const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
+            const spinner = document.getElementById('contactSpinner');
+            const statusDiv = document.getElementById('formStatus');
+            const formData = new FormData(form);
             
             // Show processing state
             submitBtn.innerHTML = '<i class="fas fa-cog fa-spin"></i> <span>Processing...</span>';

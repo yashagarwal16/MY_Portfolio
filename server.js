@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const User = require('./models/user'); // adjust path if needed
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -162,7 +163,7 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
     return true;
 };
 
-const User = mongoose.model('User', userSchema);
+
 
 // Authentication middleware
 const authenticateToken = (req, res, next) => {
